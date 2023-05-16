@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_16_005901) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_16_012040) do
+  create_table "accounts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.integer "account_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "batches", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "comment"
@@ -21,12 +28,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_16_005901) do
   end
 
   create_table "entries", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "account_id", null: false
     t.bigint "tranzaction_id"
     t.string "entry_type"
     t.decimal "amount", precision: 18, scale: 2
     t.integer "designation"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_entries_on_account_id"
     t.index ["tranzaction_id"], name: "index_entries_on_tranzaction_id"
   end
 
