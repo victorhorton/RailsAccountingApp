@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_16_012040) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_16_012622) do
   create_table "accounts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.integer "account_type"
@@ -23,6 +23,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_16_012040) do
     t.string "comment"
     t.integer "purpose"
     t.datetime "posted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "companies", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.string "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -41,12 +48,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_16_012040) do
 
   create_table "tranzactions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "batch_id"
+    t.bigint "company_id", null: false
     t.date "date"
     t.string "reference_number"
     t.datetime "completed_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["batch_id"], name: "index_tranzactions_on_batch_id"
+    t.index ["company_id"], name: "index_tranzactions_on_company_id"
   end
 
 end
