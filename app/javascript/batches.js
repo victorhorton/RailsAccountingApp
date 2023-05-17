@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 
 
   createApp({
+    name: "general_ledger",
     mounted() {
       $.ajax({
         url: `/batches/${1}/edit`,
@@ -14,12 +15,26 @@ import { createApp } from 'vue'
     },
     data() {
       return {
-        batch: undefined
+        batch: {
+          tranzactions: [
+            {
+              entries: [{}]
+            }
+          ]
+        }
+      }
+    },
+    methods: {
+      getAmount(entry) {
+        return entry.amount
+      },
+      setAmount(entry) {
+        entry.amount = event.currentTarget.value
       }
     },
     computed: {
       entries() {
-        this.batch
+        return this.batch.tranzactions.map(tranzaction => tranzaction.entries).flat()
       }
     }
   }).mount('#vue-batches')
