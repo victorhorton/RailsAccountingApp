@@ -7,4 +7,9 @@ class Entry < ApplicationRecord
 		credit: 1,
 	}
 
+	enum :designation, {
+		primary: 0,
+		distribution: 1,
+	}
+
 end
