@@ -1,0 +1,10 @@
+<label :for="`entry-${idx}-amount`" class="form-input">Amount</label>
+<input
+  :id="`entry-${idx}-amount`"
+  class="form-control"
+  type="text"
+  name="amount"
+  :value="getAmount(entry)"
+  @blur="setAmount(entry)"
+>
+{{entry.amount}}
