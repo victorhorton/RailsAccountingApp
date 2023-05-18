@@ -25,12 +25,39 @@ import { createApp } from 'vue'
       }
     },
     methods: {
-      getAmount(entry) {
-        return entry.amount
+      getAmount(entry, entryType) {
+        if (entry.entry_type === entryType) {
+          return entry.amount
+        } else {
+          return
+        }
       },
       setAmount(entry) {
-        entry.amount = event.currentTarget.value
-      }
+        const entryType = event.currentTarget.name;
+        const entryAmount = event.currentTarget.value;
+
+        if (entryAmount) {
+          entry.entry_type = entryType;
+          entry.amount = entryAmount;
+        } else {
+          return
+        }
+
+      },
+      getDate(entry) {
+
+      },
+      setDate(entry) {
+
+      },
+      getCompany(entry) {
+        return this.batch.tranzactions.find(t => t.entries.includes(entry)).company;
+      },
+      setCompany(entry) {
+        const tranzaction = this.batch.tranzactions.find(t => t.entries.includes(entry));
+        const company = event.currentTarget.value;
+        tranzaction.company = company;
+      },
     },
     computed: {
       entries() {

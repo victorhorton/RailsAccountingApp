@@ -1,10 +1,67 @@
-<label :for="`entry-${idx}-amount`" class="form-input">Amount</label>
-<input
-  :id="`entry-${idx}-amount`"
-  class="form-control"
-  type="text"
-  name="amount"
-  :value="getAmount(entry)"
-  @blur="setAmount(entry)"
->
-{{entry.amount}}
+<div class="row">
+  <div class="col">
+    <label :for="`entry-${idx}-account-id`" class="form-input">Account</label>
+    <input
+      :id="`entry-${idx}-account-id`"
+      class="form-control"
+      type="text"
+      name="account_id"
+      v-model="entry.account_id"
+    >
+  </div>
+  <div class="col">
+    <label :for="`entry-${idx}-company`" class="form-input">Company</label>
+    <input
+      :id="`entry-${idx}-company`"
+      class="form-control"
+      type="text"
+      name="company"
+      :value="getCompany(entry)"
+      @blur="setCompany(entry)"
+    >
+  </div>
+  <div class="col">
+    <label :for="`entry-${idx}-date`" class="form-input">Date</label>
+    <input
+      :id="`entry-${idx}-date`"
+      class="form-control"
+      type="text"
+      name="date"
+      :value="getDate(entry)"
+      @blur="setDate(entry)"
+    >
+  </div>
+  <div class="col">
+    <label :for="`entry-${idx}-company`" class="form-input">Debit</label>
+    <input
+      :id="`entry-${idx}-debit`"
+      class="form-control"
+      type="text"
+      name="debit"
+      :value="getAmount(entry, 'debit')"
+      @blur="setAmount(entry)"
+    >
+  </div>
+  <div class="col">
+    <label :for="`entry-${idx}-credit`" class="form-input">Credit</label>
+    <input
+      :id="`entry-${idx}-credit`"
+      class="form-control"
+      type="text"
+      name="credit"
+      :value="getAmount(entry, 'credit')"
+      @blur="setAmount(entry)"
+    >
+  </div>
+  <div class="col">
+    <label :for="`entry-${idx}-description`" class="form-input">Description</label>
+    <input
+      :id="`entry-${idx}-description`"
+      class="form-control"
+      type="text"
+      name="description"
+      v-model="entry.desciption"
+    >
+  </div>
+</div>
+  {{entry}}
