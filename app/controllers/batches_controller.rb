@@ -42,6 +42,13 @@ class BatchesController < ApplicationController
 			:comment,
 			:purpose,
 			:posted_at,
+      tranzactions_attributes: [
+        :id,
+        :company_id,
+        :date,
+        :reference_number,
+        :completed_at,
+      ]
 		)
 	end
 end
