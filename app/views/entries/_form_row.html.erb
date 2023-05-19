@@ -61,6 +61,7 @@
       type="text"
       name="description"
       v-model="entry.desciption"
+      @blur="entries.length === idx + 1 ? addEntry() : ''"
     >
   </div>
 </div>

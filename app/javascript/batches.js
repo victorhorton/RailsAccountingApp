@@ -25,6 +25,13 @@ import { createApp } from 'vue'
       }
     },
     methods: {
+      addEntry() {
+        const tranzactions = this.batch.tranzactions;
+        const lastTranzactionIdx = tranzactions.length - 1;
+        tranzactions[lastTranzactionIdx].entries.push({
+          designation: 'distribution'
+        })
+      },
       getAmount(entry, entryType) {
         if (entry.entry_type === entryType) {
           return entry.amount
