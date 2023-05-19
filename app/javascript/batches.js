@@ -52,10 +52,25 @@ import { createApp } from 'vue'
 
       },
       getDate(entry) {
-
+        const date = this.batch.tranzactions.find(t => t.entries.includes(entry)).date;
+        if (!date) {
+          return
+        }
+        const splitDate = date.split('-');
+        const splitMonth = splitDate[1];
+        const splitDay = splitDate[2];
+        const splitYear = splitDate[0].substring(2, 4);
+        return `${splitMonth}-${splitDay}-${splitYear}`;        
       },
       setDate(entry) {
+        const date = event.currentTarget.value;
+        const splitDate = date.split('-');
+        const splitMonth = splitDate[0];
+        const splitDay = splitDate[1];
+        const splitYear = splitDate[2];
+        const tranzaction = this.batch.tranzactions.find(t => t.entries.includes(entry));
 
+        tranzaction.date = `20${splitYear}-${splitMonth}-${splitDay}`;
       },
       getCompany(entry) {
         return this.batch.tranzactions.find(t => t.entries.includes(entry)).company;
