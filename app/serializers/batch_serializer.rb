@@ -1,11 +1,18 @@
 class BatchSerializer < ActiveModel::Serializer
-  attributes :id, :name, :comment, :purpose, :posted_at, :tranzactions
+  attributes :id, :name, :comment, :purpose, :posted_at, :tranzactions_attributes
 
-  def tranzactions
+  def tranzactions_attributes
     if object.tranzactions.blank?
       return [{entries: [{designation: 'distribution'}]}]
     else
-      object.tranzactions
+      return object.tranzactions.map{|tranzaction|
+        {
+          id: tranzaction.id,
+          company_id: tranzaction.company_id,
+          date: tranzaction.date,
+          entries_attributes: tranzaction.entries
+        }
+      }
     end
   end
 end

@@ -16,9 +16,11 @@ import { createApp } from 'vue'
     data() {
       return {
         batch: {
-          tranzactions: [
+          tranzactions_attributes: [
             {
-              entries: [{}]
+              entries_attributes: [{
+                account_id: null
+              }]
             }
           ]
         }
@@ -26,9 +28,9 @@ import { createApp } from 'vue'
     },
     methods: {
       addEntry() {
-        const tranzactions = this.batch.tranzactions;
+        const tranzactions = this.batch.tranzactions_attributes;
         const lastTranzactionIdx = tranzactions.length - 1;
-        tranzactions[lastTranzactionIdx].entries.push({
+        tranzactions[lastTranzactionIdx].entries_attributes.push({
           designation: 'distribution'
         })
       },
@@ -52,7 +54,7 @@ import { createApp } from 'vue'
 
       },
       getDate(entry) {
-        const date = this.batch.tranzactions.find(t => t.entries.includes(entry)).date;
+        const date = this.batch.tranzactions_attributes.find(t => t.entries_attributes.includes(entry)).date;
         if (!date) {
           return
         }
@@ -68,22 +70,23 @@ import { createApp } from 'vue'
         const splitMonth = splitDate[0];
         const splitDay = splitDate[1];
         const splitYear = splitDate[2];
-        const tranzaction = this.batch.tranzactions.find(t => t.entries.includes(entry));
+        const tranzaction = this.batch.tranzactions_attributes.find(t => t.entries_attributes.includes(entry));
 
         tranzaction.date = `20${splitYear}-${splitMonth}-${splitDay}`;
       },
       getCompany(entry) {
-        return this.batch.tranzactions.find(t => t.entries.includes(entry)).company;
+        return this.batch.tranzactions_attributes.find(t => t.entries_attributes.includes(entry)).company_id;
       },
       setCompany(entry) {
-        const tranzaction = this.batch.tranzactions.find(t => t.entries.includes(entry));
-        const company = event.currentTarget.value;
-        tranzaction.company = company;
+        const company_id = event.currentTarget.value;
+
+        const tranzaction = this.batch.tranzactions_attributes.find(t => t.entries_attributes.includes(entry));
+        tranzaction.company_id = company_id;
       },
     },
     computed: {
       entries() {
-        return this.batch.tranzactions.map(tranzaction => tranzaction.entries).flat()
+        return this.batch.tranzactions_attributes.map(tranzaction => tranzaction.entries_attributes).flat()
       }
     }
   }).mount('#vue-batches')
