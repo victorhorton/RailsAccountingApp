@@ -25,7 +25,9 @@ class BatchesController < ApplicationController
 
   def edit
     respond_to do |format|
-      format.html  # index.html.erb
+      format.html  {
+        @companies = Company.all
+      }
       format.json  {
         @batch = Batch.eager_load(tranzactions: :entries).find(params[:id])
         render json: @batch, serializer: BatchSerializer

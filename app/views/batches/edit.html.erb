@@ -5,3 +5,8 @@
     </template>
   <% end %>
 </div>
+<datalist id="company-datalist">
+  <% @companies.each do |company| %>
+    <option value="<%= company.id %>"><%= company.code %></option>
+  <% end %>
+</datalist>
