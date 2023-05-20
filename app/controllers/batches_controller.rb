@@ -17,9 +17,9 @@ class BatchesController < ApplicationController
     @batch = Batch.find(params[:id])
 
     if @batch.update(batch_params)
-      redirect_to edit_batch_path(@batch)
+      success
     else
-      redirect_to batches_path
+      error
     end
   end
 
@@ -34,6 +34,14 @@ class BatchesController < ApplicationController
   end
 
 	private
+
+  def success
+    flash.notice = "Saved"
+  end
+
+  def error
+    flash.alert = "Error"
+  end
 
 	def batch_params
 		params.require(:batch).permit(
