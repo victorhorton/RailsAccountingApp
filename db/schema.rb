@@ -37,7 +37,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_16_012622) do
   create_table "entries", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "account_id", null: false
     t.bigint "tranzaction_id"
-    t.string "entry_type"
+    t.integer "entry_type"
     t.decimal "amount", precision: 18, scale: 2
     t.integer "designation"
     t.datetime "created_at", null: false
