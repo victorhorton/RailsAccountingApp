@@ -83,6 +83,25 @@ import { createApp } from 'vue'
         const tranzaction = this.batch.tranzactions_attributes.find(t => t.entries_attributes.includes(entry));
         tranzaction.company_id = company_id;
       },
+      submitForm() {
+
+        $.ajax({
+          url: `/batches/${this.batch.id}`,
+          type: "PATCH",
+          headers: {
+            "X-CSRF-Token":  $('[name=csrf-token]')[0].content,
+          },
+          data: {
+            batch: this.batch
+          },
+          success:  e => {
+            debugger
+          },
+          error:  e => {
+            debugger
+          }
+        });
+      }
     },
     computed: {
       entries() {

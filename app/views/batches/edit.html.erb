@@ -3,6 +3,7 @@
     <template v-for="(entry, idx) in entries">
       <%= render partial: '/entries/form_row' %>
     </template>
+    <button type="button" class="btn btn-primary" @click="submitForm">Save</button>
   <% end %>
 </div>
 <datalist id="company-datalist">
