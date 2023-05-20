@@ -1,5 +1,5 @@
 <div id="vue-batches" class="container-fluid">
-  <%= form_with model: @batch do |batch| %>
+  <%= form_with model: @batch do |form| %>
     <template v-for="(entry, idx) in entries">
       <%= render partial: '/entries/form_row' %>
     </template>
