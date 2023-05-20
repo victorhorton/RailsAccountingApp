@@ -30,7 +30,7 @@ class BatchesController < ApplicationController
       }
       format.json  {
         @batch = Batch.eager_load(tranzactions: :entries).find(params[:id])
-        render json: @batch, serializer: BatchSerializer
+        render json: @batch, serializer: GeneralLedgerSerializer
       }
     end
   end

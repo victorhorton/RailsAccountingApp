@@ -1,4 +1,4 @@
-class BatchSerializer < ActiveModel::Serializer
+class GeneralLedgerSerializer < ActiveModel::Serializer
   attributes :id, :name, :comment, :purpose, :posted_at, :tranzactions_attributes
 
   def tranzactions_attributes
