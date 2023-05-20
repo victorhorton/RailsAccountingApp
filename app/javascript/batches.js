@@ -8,8 +8,8 @@ import { createApp } from 'vue'
         url: `/batches/${1}/edit`,
         type: "GET",
         dataType: 'json',
-        success: e => {
-          this.batch = e
+        success: batch => {
+          this.batch = batch
         },
       });
     },
