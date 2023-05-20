@@ -48,6 +48,13 @@ class BatchesController < ApplicationController
         :date,
         :reference_number,
         :completed_at,
+        entries_attributes: [
+          :id,
+          :account_id,
+          :entry_type,
+          :amount,
+          :designation,
+        ]
       ]
 		)
 	end
