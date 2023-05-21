@@ -77,12 +77,45 @@ $(document).ready(function() {
       setDate(entry) {
         const date = event.currentTarget.value;
         const splitDate = date.split('-');
-        const splitMonth = splitDate[0];
-        const splitDay = splitDate[1];
-        const splitYear = splitDate[2];
-        const tranzaction = this.batch.tranzactions_attributes.find(t => t.entries_attributes.includes(entry));
+        const sqlDate = `20${splitDate[2]}-${splitDate[0]}-${splitDate[1]}`;
 
-        tranzaction.date = `20${splitYear}-${splitMonth}-${splitDay}`;
+        const tranzactions = this.batch.tranzactions_attributes;
+        const currentTranzaction = tranzactions.find(t => {
+          return t.entries_attributes.includes(entry)
+        });
+        const matchedTranzaction = tranzactions.find(t => {
+          return t.date === sqlDate && t.company_id === currentTranzaction.company_id;
+        });        
+
+        if (currentTranzaction.date === sqlDate) {
+          return
+        }
+        else if (entry.id !== undefined || currentTranzaction === matchedTranzaction) {
+          currentTranzaction.date = sqlDate
+        } else if (matchedTranzaction !== undefined) {
+          currentTranzaction.entries_attributes.splice(currentTranzaction.entries_attributes.indexOf(entry), 1);
+
+          if (currentTranzaction.entries_attributes.length === 0) {
+            tranzactions.splice(tranzactions.indexOf(currentTranzaction), 1)
+          }
+
+          matchedTranzaction.entries_attributes.push(entry)
+        } else {
+
+          currentTranzaction.entries_attributes.splice(currentTranzaction.entries_attributes.indexOf(entry), 1);
+
+          if (currentTranzaction.entries_attributes.length === 0) {
+            tranzactions.splice(tranzactions.indexOf(currentTranzaction), 1)
+          }
+
+          tranzactions.push({
+            company_id: currentTranzaction.company_id,
+            date: sqlDate,
+            entries_attributes: [
+              entry
+            ]
+          })
+        }
       },
       getCompany(entry) {
         return this.batch.tranzactions_attributes.find(t => t.entries_attributes.includes(entry)).company_id;
