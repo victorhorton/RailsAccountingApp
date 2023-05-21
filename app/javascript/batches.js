@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 
-
+$(document).ready(function() {
   createApp({
     name: "general_ledger",
     mounted() {
@@ -109,3 +109,4 @@ import { createApp } from 'vue'
       }
     }
   }).mount('#vue-batches')
+})
