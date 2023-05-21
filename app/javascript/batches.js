@@ -98,7 +98,7 @@ import { createApp } from 'vue'
             window.location = '/batches'
           },
           error:  e => {
-            window.reload()
+            location.reload()
           }
         });
       }

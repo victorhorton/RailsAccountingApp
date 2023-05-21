@@ -18,8 +18,14 @@ class BatchesController < ApplicationController
 
     if @batch.update(batch_params)
       success
+      render json: {
+        message: 'Success'
+      }, status: :ok
     else
       error
+      render json: {
+        message: @batch.errors.full_messages
+      }, status: :unprocessable_entity
     end
   end
 
