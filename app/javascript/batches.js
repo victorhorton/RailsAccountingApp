@@ -36,7 +36,17 @@ $(document).ready(function() {
       },
       getAmount(entry, entryType) {
         if (entry.entry_type === entryType) {
-          return entry.amount
+          let amount = `${entry.amount}`;
+          const splitAmount = amount.split('.');
+          const wholeNumber = parseFloat(splitAmount[0]).toLocaleString("en-US");
+          let decimalNumber = splitAmount[1];
+          if (decimalNumber == undefined || decimalNumber.length == 0) {
+            decimalNumber = '00';
+          } else if (decimalNumber.length == 1) {
+            decimalNumber = `${decimalNumber}0`;
+          }
+
+          return `${wholeNumber}.${decimalNumber}`;
         } else {
           return
         }
