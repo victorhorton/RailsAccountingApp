@@ -15,7 +15,7 @@ class GeneralLedgerSerializer < ActiveModel::Serializer
               id: entry.id,
               account_id: entry.account_id,
               entry_type: entry.entry_type,
-              amount: entry.amount,
+              amount: entry.amount.to_i,
               designation: entry.designation,
             }
           }

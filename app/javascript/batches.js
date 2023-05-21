@@ -53,7 +53,7 @@ $(document).ready(function() {
       },
       setAmount(entry) {
         const entryType = event.currentTarget.name;
-        const entryAmount = event.currentTarget.value;
+        const entryAmount = parseFloat(event.currentTarget.value);
 
         if (entryAmount) {
           entry.entry_type = entryType;
