@@ -74,6 +74,38 @@ $(document).ready(function() {
         const splitYear = splitDate[0].substring(2, 4);
         return `${splitMonth}-${splitDay}-${splitYear}`;        
       },
+      deleteEntry(entry) {
+        const tranzactions = this.batch.tranzactions_attributes;
+        const tranzaction = tranzactions.find(t => {
+          return t.entries_attributes.includes(entry)
+        });
+        const entries = tranzaction.entries_attributes;
+
+        if (entry.id != undefined) {
+          $.ajax({
+            url: `/entries/${entry.id}`,
+            type: "DELETE",
+            headers: {
+              "X-CSRF-Token":  $('[name=csrf-token]')[0].content,
+            },
+          });
+        }
+        entries.splice(entries.indexOf(entry), 1);
+
+        if (tranzaction.entries_attributes.filter(e => e.deleted_at == null).length === 0) {
+          if (tranzaction.id != undefined) {
+            $.ajax({
+              url: `/tranzactions/${tranzaction.id}`,
+              type: "DELETE",
+              headers: {
+                "X-CSRF-Token":  $('[name=csrf-token]')[0].content,
+              },
+            });            
+          }
+          tranzactions.splice(tranzactions.indexOf(tranzaction), 1);
+        }
+
+      },
       setDate(entry) {
         const date = event.currentTarget.value;
         const splitDate = date.split('-');
