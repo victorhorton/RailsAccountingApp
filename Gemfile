@@ -51,6 +51,8 @@ gem "sassc-rails"
 # Add bootstrap framework
 gem 'bootstrap', '~> 5.3.0.alpha3'
 
+# Add font awesome icons
+gem "font-awesome-sass", "~> 6.4.0"
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 

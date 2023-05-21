@@ -65,11 +65,11 @@
       @keydown.tab="entries.length === idx + 1 ? addEntry() : ''"
     >
   </div>
-  <div class="col">
+  <div class="col-auto d-flex">
     <button
       :id="`entry-${idx}-delete`"
-      class="btn btn-danger"
+      class="btn btn-danger align-self-end"
       @click="deleteEntry(entry)"
-    >Delete</button>
+    ><i class="fa-solid fa-trash"></i></button>
   </div>
 </div>
