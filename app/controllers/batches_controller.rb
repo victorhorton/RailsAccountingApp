@@ -48,7 +48,7 @@ class BatchesController < ApplicationController
   end
 
   def error
-    flash.alert = "Error"
+    flash.alert = @batch.errors.full_messages.join(', ')
   end
 
 	def batch_params
