@@ -1,5 +1,6 @@
 class BatchesController < ApplicationController
 	def index
+    index_breadcrumbs
 		@batches = Batch.eager_load(tranzactions: :entries).all
 	end
 
@@ -32,6 +33,7 @@ class BatchesController < ApplicationController
   def edit
     respond_to do |format|
       format.html  {
+        edit_breadcrumbs
         @companies = Company.all
       }
       format.json  {
@@ -49,6 +51,16 @@ class BatchesController < ApplicationController
 
   def error
     flash.alert = @batch.errors.full_messages.join(', ')
+  end
+
+  def index_breadcrumbs
+    add_breadcrumb "Home", :root_path
+    add_breadcrumb "Batches", :batches_path
+  end
+
+  def edit_breadcrumbs
+    index_breadcrumbs
+    add_breadcrumb "Edit", edit_batch_path(params[:id])
   end
 
 	def batch_params
