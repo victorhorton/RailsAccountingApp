@@ -1,5 +1,6 @@
 class Entry < ApplicationRecord
-
+	acts_as_paranoid
+	
 	belongs_to :tranzaction
 	validates_presence_of :account_id, :entry_type, :amount, :designation
 

@@ -1,6 +1,7 @@
 class Batch < ApplicationRecord
-
-	has_many :tranzactions
+	acts_as_paranoid
+	
+	has_many :tranzactions, dependent: :destroy
 	has_many :entries, through: :tranzactions
 
 	accepts_nested_attributes_for :tranzactions

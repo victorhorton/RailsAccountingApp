@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_16_012622) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_21_052146) do
   create_table "accounts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.integer "account_type"
@@ -25,6 +25,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_16_012622) do
     t.datetime "posted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_batches_on_deleted_at"
   end
 
   create_table "companies", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -42,7 +44,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_16_012622) do
     t.integer "designation"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
     t.index ["account_id"], name: "index_entries_on_account_id"
+    t.index ["deleted_at"], name: "index_entries_on_deleted_at"
     t.index ["tranzaction_id"], name: "index_entries_on_tranzaction_id"
   end
 
@@ -54,8 +58,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_16_012622) do
     t.datetime "completed_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
     t.index ["batch_id"], name: "index_tranzactions_on_batch_id"
     t.index ["company_id"], name: "index_tranzactions_on_company_id"
+    t.index ["deleted_at"], name: "index_tranzactions_on_deleted_at"
   end
 
 end
