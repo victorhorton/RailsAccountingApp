@@ -5,4 +5,6 @@ Rails.application.routes.draw do
   # root "articles#index"
   root "home#index"
   resources :batches, except: :new
+  resources :entries, only: :destroy
+  resources :tranzactions, only: :destroy
 end
