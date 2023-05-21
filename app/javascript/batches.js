@@ -95,10 +95,10 @@ import { createApp } from 'vue'
             batch: this.batch
           },
           success:  e => {
-            debugger
+            window.location = '/batches'
           },
           error:  e => {
-            debugger
+            window.reload()
           }
         });
       }
