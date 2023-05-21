@@ -17,6 +17,7 @@ class GeneralLedgerSerializer < ActiveModel::Serializer
               entry_type: entry.entry_type,
               amount: entry.amount.to_i,
               designation: entry.designation,
+              position: entry.position,
             }
           }
         }

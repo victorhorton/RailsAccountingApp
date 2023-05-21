@@ -73,6 +73,7 @@ class BatchesController < ApplicationController
           :amount,
           :designation,
           :description,
+          :position,
           :deleted_at,
         ]
       ]

@@ -28,10 +28,12 @@ $(document).ready(function() {
     },
     methods: {
       addEntry() {
+        const nextPosition = this.entries[this.entries.length - 1].position + 1
         const tranzactions = this.batch.tranzactions_attributes;
         const lastTranzactionIdx = tranzactions.length - 1;
         tranzactions[lastTranzactionIdx].entries_attributes.push({
-          designation: 'distribution'
+          designation: 'distribution',
+          position: nextPosition
         })
       },
       getAmount(entry, entryType) {
@@ -180,7 +182,12 @@ $(document).ready(function() {
     },
     computed: {
       entries() {
-        return this.batch.tranzactions_attributes.map(tranzaction => tranzaction.entries_attributes).flat()
+        return this.batch.tranzactions_attributes.map(tranzaction => {
+          return tranzaction.entries_attributes
+        }).flat().sort((a, b) => {
+          var x = a.position; var y = b.position;
+          return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+        })
       }
     }
   }).mount('#vue-batches')
