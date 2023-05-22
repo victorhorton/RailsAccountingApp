@@ -57,7 +57,7 @@ $(document).ready(function() {
         const entryType = event.currentTarget.name;
         const entryAmount = parseFloat(event.currentTarget.value);
 
-        if (entryAmount) {
+        if (entryAmount || entryAmount == 0) {
           entry.entry_type = entryType;
           entry.amount = entryAmount;
         } else {
@@ -155,7 +155,7 @@ $(document).ready(function() {
         return this.batch.tranzactions_attributes.find(t => t.entries_attributes.includes(entry)).company_id;
       },
       setCompany(entry) {
-        const company_id = event.currentTarget.value;
+        const company_id = parseFloat(event.currentTarget.value);
 
         const tranzaction = this.batch.tranzactions_attributes.find(t => t.entries_attributes.includes(entry));
         tranzaction.company_id = company_id;
