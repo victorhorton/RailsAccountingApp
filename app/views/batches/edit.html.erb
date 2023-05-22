@@ -1,8 +1,10 @@
 <div id="vue-batches" class="container-fluid">
-  <%= form_with model: @batch do |form| %>
-    <template v-for="(entry, idx) in entries">
-      <%= render partial: '/entries/form_row' %>
-    </template>
+  <%= form_with(model: @batch, id: 'edit-gl-batch') do |form| %>
+    <div id="gl-entries">
+      <template v-for="(entry, idx) in entries">
+        <%= render partial: '/entries/form_row' %>
+      </template>
+    </div>
     <button type="button" class="btn btn-primary" @click="submitForm">Save</button>
   <% end %>
 </div>
