@@ -17,4 +17,8 @@ class Batch < ApplicationRecord
 		general_ledger: 2,
 	}
 
+	def self.unposted
+		where(posted_at: nil)
+	end
+
 end

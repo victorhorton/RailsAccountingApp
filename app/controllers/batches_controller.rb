@@ -1,7 +1,7 @@
 class BatchesController < ApplicationController
 	def index
     index_breadcrumbs
-		@batches = Batch.eager_load(tranzactions: :entries).all
+		@batches = Batch.eager_load(tranzactions: :entries).unposted
 	end
 
 	def create
