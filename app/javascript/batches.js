@@ -154,8 +154,43 @@ import { createApp } from 'vue'
       setCompany(entry) {
         const company_id = parseFloat(event.currentTarget.value);
 
-        const tranzaction = this.batch.tranzactions_attributes.find(t => t.entries_attributes.includes(entry));
-        tranzaction.company_id = company_id;
+        const tranzactions = this.batch.tranzactions_attributes;
+        const currentTranzaction = tranzactions.find(t => {
+          return t.entries_attributes.includes(entry)
+        });
+        const matchedTranzaction = tranzactions.find(t => {
+          return t.date === currentTranzaction.date && t.company_id === company_id;
+        });        
+
+        if (currentTranzaction.company_id === company_id) {
+          return
+        }
+        else if (entry.id !== undefined || currentTranzaction === matchedTranzaction) {
+          currentTranzaction.company_id = company_id
+        } else if (matchedTranzaction !== undefined) {
+          currentTranzaction.entries_attributes.splice(currentTranzaction.entries_attributes.indexOf(entry), 1);
+
+          if (currentTranzaction.entries_attributes.length === 0) {
+            tranzactions.splice(tranzactions.indexOf(currentTranzaction), 1)
+          }
+
+          matchedTranzaction.entries_attributes.push(entry)
+        } else {
+
+          currentTranzaction.entries_attributes.splice(currentTranzaction.entries_attributes.indexOf(entry), 1);
+
+          if (currentTranzaction.entries_attributes.length === 0) {
+            tranzactions.splice(tranzactions.indexOf(currentTranzaction), 1)
+          }
+
+          tranzactions.push({
+            date: currentTranzaction.date,
+            company_id: company_id,
+            entries_attributes: [
+              entry
+            ]
+          })
+        }
       },
       submitForm() {
 
