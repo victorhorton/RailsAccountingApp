@@ -8,7 +8,7 @@ class Batch < ApplicationRecord
 
 	validates_presence_of :name, :purpose
 	validates_associated :tranzactions, message: lambda { |obj_class, obj|
-		return obj[:value].map{|t| t.errors.full_messages}.flatten.compact.join(', ')
+		return obj[:value].map{|t| t.errors.full_messages}.flatten.compact.uniq.join(', ')
 	}
 
 	enum :purpose, {

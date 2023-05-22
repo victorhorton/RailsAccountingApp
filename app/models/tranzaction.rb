@@ -10,7 +10,7 @@ class Tranzaction < ApplicationRecord
 	validates_presence_of :company_id, :date
 	validate :entries_cancel?
 	validates_associated :entries, message: lambda { |obj_class, obj|
-		return obj[:value].map{|t| t.errors.full_messages}.flatten.compact.join(', ')
+		return obj[:value].map{|t| t.errors.full_messages}.flatten.compact.uniq.join(', ')
 	}
 
 	def credit_entries
