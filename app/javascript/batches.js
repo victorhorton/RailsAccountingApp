@@ -24,6 +24,49 @@ import { createApp } from 'vue'
       }
     },
     methods: {
+      adjustTranzactions(entry, primaryKey, value) {
+        const secondaryKey = primaryKey === 'date' ? 'company_id' : 'date';
+        const tranzactions = this.batch.tranzactions_attributes;
+        const currentTranzaction = tranzactions.find(t => {
+          return t.entries_attributes.includes(entry)
+        });
+        const matchedTranzaction = tranzactions.find(t => {
+          return t[primaryKey] === value && t[secondaryKey] === currentTranzaction[secondaryKey];
+        });        
+
+        if (currentTranzaction[primaryKey] === value) {
+          return
+        }
+        else if (entry.id !== undefined || currentTranzaction === matchedTranzaction) {
+          currentTranzaction[primaryKey] = value
+        } else if (matchedTranzaction !== undefined) {
+          currentTranzaction.entries_attributes.splice(currentTranzaction.entries_attributes.indexOf(entry), 1);
+
+          if (currentTranzaction.entries_attributes.length === 0) {
+            tranzactions.splice(tranzactions.indexOf(currentTranzaction), 1)
+          }
+
+          matchedTranzaction.entries_attributes.push(entry)
+        } else {
+
+          currentTranzaction.entries_attributes.splice(currentTranzaction.entries_attributes.indexOf(entry), 1);
+
+          if (currentTranzaction.entries_attributes.length === 0) {
+            tranzactions.splice(tranzactions.indexOf(currentTranzaction), 1)
+          }
+
+          const company_id = primaryKey === 'company_id' ? value : currentTranzaction.company_id;
+          const date = primaryKey === 'date' ? value : currentTranzaction.date;
+
+          tranzactions.push({
+            company_id,
+            date,
+            entries_attributes: [
+              entry
+            ]
+          })
+        }
+      },
       addEntry() {
         const nextPosition = this.entries[this.entries.length - 1].position + 1
         const tranzactions = this.batch.tranzactions_attributes;
@@ -109,88 +152,14 @@ import { createApp } from 'vue'
         const date = event.currentTarget.value;
         const splitDate = date.split('-');
         const sqlDate = `20${splitDate[2]}-${splitDate[0]}-${splitDate[1]}`;
-
-        const tranzactions = this.batch.tranzactions_attributes;
-        const currentTranzaction = tranzactions.find(t => {
-          return t.entries_attributes.includes(entry)
-        });
-        const matchedTranzaction = tranzactions.find(t => {
-          return t.date === sqlDate && t.company_id === currentTranzaction.company_id;
-        });        
-
-        if (currentTranzaction.date === sqlDate) {
-          return
-        }
-        else if (entry.id !== undefined || currentTranzaction === matchedTranzaction) {
-          currentTranzaction.date = sqlDate
-        } else if (matchedTranzaction !== undefined) {
-          currentTranzaction.entries_attributes.splice(currentTranzaction.entries_attributes.indexOf(entry), 1);
-
-          if (currentTranzaction.entries_attributes.length === 0) {
-            tranzactions.splice(tranzactions.indexOf(currentTranzaction), 1)
-          }
-
-          matchedTranzaction.entries_attributes.push(entry)
-        } else {
-
-          currentTranzaction.entries_attributes.splice(currentTranzaction.entries_attributes.indexOf(entry), 1);
-
-          if (currentTranzaction.entries_attributes.length === 0) {
-            tranzactions.splice(tranzactions.indexOf(currentTranzaction), 1)
-          }
-
-          tranzactions.push({
-            company_id: currentTranzaction.company_id,
-            date: sqlDate,
-            entries_attributes: [
-              entry
-            ]
-          })
-        }
+        this.adjustTranzactions(entry, 'date', sqlDate)
       },
       getCompany(entry) {
         return this.batch.tranzactions_attributes.find(t => t.entries_attributes.includes(entry)).company_id;
       },
       setCompany(entry) {
         const company_id = parseFloat(event.currentTarget.value);
-
-        const tranzactions = this.batch.tranzactions_attributes;
-        const currentTranzaction = tranzactions.find(t => {
-          return t.entries_attributes.includes(entry)
-        });
-        const matchedTranzaction = tranzactions.find(t => {
-          return t.date === currentTranzaction.date && t.company_id === company_id;
-        });        
-
-        if (currentTranzaction.company_id === company_id) {
-          return
-        }
-        else if (entry.id !== undefined || currentTranzaction === matchedTranzaction) {
-          currentTranzaction.company_id = company_id
-        } else if (matchedTranzaction !== undefined) {
-          currentTranzaction.entries_attributes.splice(currentTranzaction.entries_attributes.indexOf(entry), 1);
-
-          if (currentTranzaction.entries_attributes.length === 0) {
-            tranzactions.splice(tranzactions.indexOf(currentTranzaction), 1)
-          }
-
-          matchedTranzaction.entries_attributes.push(entry)
-        } else {
-
-          currentTranzaction.entries_attributes.splice(currentTranzaction.entries_attributes.indexOf(entry), 1);
-
-          if (currentTranzaction.entries_attributes.length === 0) {
-            tranzactions.splice(tranzactions.indexOf(currentTranzaction), 1)
-          }
-
-          tranzactions.push({
-            date: currentTranzaction.date,
-            company_id: company_id,
-            entries_attributes: [
-              entry
-            ]
-          })
-        }
+        this.adjustTranzactions(entry, 'company_id', company_id)
       },
       submitForm() {
 
