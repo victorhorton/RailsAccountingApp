@@ -1,6 +1,5 @@
 import { createApp } from 'vue'
 
-$(document).ready(function() {
   createApp({
     name: "general_ledger",
     mounted() {
@@ -18,9 +17,7 @@ $(document).ready(function() {
         batch: {
           tranzactions_attributes: [
             {
-              entries_attributes: [{
-                account_id: null
-              }]
+              entries_attributes: [{}]
             }
           ]
         }
@@ -191,4 +188,3 @@ $(document).ready(function() {
       }
     }
   }).mount('#vue-batches')
-})
