@@ -11,13 +11,13 @@
   </head>
 
   <body>
-    <% flash.each do |type, msg| %>
-      <div class="alert alert-info">
-        <%= msg %>
-      </div>
-    <% end %>
-    <%= render_breadcrumbs separator: " / " %>  
-    <div id="app">
+    <div class="container">
+      <% flash.each do |type, msg| %>
+        <div class="alert alert-info">
+          <%= msg %>
+        </div>
+      <% end %>
+      <%= render_breadcrumbs separator: " / " %>  
       <%= yield %>
     </div>
   </body>
