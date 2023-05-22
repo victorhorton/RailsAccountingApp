@@ -2,6 +2,7 @@ class Entry < ApplicationRecord
 	acts_as_paranoid
 	
 	belongs_to :tranzaction
+	belongs_to :account
 	validates_presence_of :account_id, :entry_type, :amount, :designation
 
 	enum :entry_type, {
