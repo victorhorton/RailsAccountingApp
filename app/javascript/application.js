@@ -2,5 +2,6 @@
 // import "@hotwired/turbo-rails"
 import "vue"
 import "jquery"
+import "bootstrap"
 import "controllers"
 import "batches"
