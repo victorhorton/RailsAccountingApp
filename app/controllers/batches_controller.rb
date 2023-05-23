@@ -19,14 +19,8 @@ class BatchesController < ApplicationController
 
     if @batch.update(batch_params)
       success
-      render json: {
-        message: 'Success'
-      }, status: :ok
     else
       error
-      render json: {
-        message: @batch.errors.full_messages
-      }, status: :unprocessable_entity
     end
   end
 
@@ -51,10 +45,30 @@ class BatchesController < ApplicationController
 
   def success
     flash.notice = "Saved"
+    respond_to do |format|
+      format.html {
+        redirect_to batches_path
+      }
+      format.json {
+        render json: {
+          message: @batch.errors.full_messages
+        }, status: :unprocessable_entity     
+      }
+    end
   end
 
   def error
     flash.alert = @batch.errors.full_messages.join(', ')
+    respond_to do |format|
+      format.html {
+        render :edit
+      }
+      format.json {
+        render json: {
+          message: 'Success'
+        }, status: :ok        
+      }
+    end
   end
 
   def index_breadcrumbs
