@@ -7,8 +7,9 @@ import { createApp } from 'vue'
         url: `/batches/${1}/edit`,
         type: "GET",
         dataType: 'json',
-        success: batch => {
-          this.batch = batch
+        success: resp => {
+          this.batch = resp.batch
+          this.companies = resp.companies
         },
       });
     },
@@ -20,7 +21,8 @@ import { createApp } from 'vue'
               entries_attributes: [{}]
             }
           ]
-        }
+        },
+        companies: [{}]
       }
     },
     methods: {
@@ -155,11 +157,18 @@ import { createApp } from 'vue'
         this.adjustTranzactions(entry, 'date', sqlDate)
       },
       getCompany(entry) {
-        return this.batch.tranzactions_attributes.find(t => t.entries_attributes.includes(entry)).company_id;
+        const company_id = this.batch.tranzactions_attributes.find(t => {
+          return t.entries_attributes.includes(entry)
+        }).company_id;
+
+        return this.companies.find(c => c.id === company_id).code;
       },
       setCompany(entry) {
-        const company_id = parseFloat(event.currentTarget.value);
-        this.adjustTranzactions(entry, 'company_id', company_id)
+        const companyCode = event.currentTarget.value.toUpperCase();
+        const company = this.companies.find(c => c.code === companyCode);
+        if (company) {
+          this.adjustTranzactions(entry, 'company_id', company.id)
+        }
       },
       submitForm() {
 

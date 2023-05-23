@@ -34,11 +34,15 @@ class BatchesController < ApplicationController
     respond_to do |format|
       format.html  {
         edit_breadcrumbs
-        @companies = Company.all
       }
       format.json  {
         @batch = Batch.eager_load(tranzactions: :entries).find(params[:id])
-        render json: @batch, serializer: GeneralLedgerSerializer
+        @companies = Company.all
+        render json: {
+
+          batch: ActiveModelSerializers::SerializableResource.new(@batch, {serializer: GeneralLedgerSerializer}).as_json,
+          companies: @companies
+        }
       }
     end
   end

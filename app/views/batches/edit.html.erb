@@ -7,9 +7,9 @@
     </div>
     <button type="button" class="btn btn-primary" @click="submitForm">Save</button>
   <% end %>
+  <datalist id="company-datalist">
+    <template v-for="company in companies">
+      <option>{{company.code}}</option>
+    </template>
+  </datalist>
 </div>
-<datalist id="company-datalist">
-  <% @companies.each do |company| %>
-    <option value="<%= company.id %>"><%= company.code %></option>
-  <% end %>
-</datalist>
