@@ -6,6 +6,6 @@ Rails.application.routes.draw do
   root "home#index"
   resources :batches, except: :new
   resources :entries, only: :destroy
-  resources :tranzactions, only: :destroy
+  resources :tranzactions
   resources :accounts
 end

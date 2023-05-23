@@ -1,0 +1,13 @@
+<div id="vue-tranzactions" class="container-fluid">
+  <%= form_with model: @tranzaction do |form| %>
+    <div class="row">
+      <%= render partial: 'form' %>
+    </div>
+    <div class="row">
+      <template v-for="(entry, idx) in entries">
+        <%= render partial: '/entries/form_row' %>
+      </template>
+    </div>
+    <button type="button" class="btn btn-primary" @click="submitForm">Save</button>
+  <% end %>
+</div>
