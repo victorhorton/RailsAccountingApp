@@ -6,7 +6,6 @@ class BatchesController < ApplicationController
 
 	def create
 		@batch = Batch.new(batch_params)
-
 		if @batch.save
       if @batch.purpose == 'general_ledger'
 			  redirect_to edit_batch_path(@batch)

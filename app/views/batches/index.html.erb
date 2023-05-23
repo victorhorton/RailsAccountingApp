@@ -1,6 +1,10 @@
 <div class="row my-3">
   <div class="col-auto">
   	<%= form_with model: Batch.new do |form| %>
+      <%= form.hidden_field(
+        :name,
+        value: "#{params[:purpose].titleize} - #{Date.current}"
+      ) %>
   		<%= form.hidden_field(
   			:purpose,
   			value: params[:purpose]
