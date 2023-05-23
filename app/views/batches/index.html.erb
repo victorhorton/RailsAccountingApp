@@ -1,13 +1,17 @@
-<div>
-	<%= form_with model: Batch.new do |form| %>
-		<%= form.hidden_field(
-			:purpose,
-			value: 'general_ledger'
-		) %>
-		<%= form.submit('New Batch', class: 'btn btn-primary') %> 
-	<% end %>
+<div class="row my-3">
+  <div class="col-auto">
+  	<%= form_with model: Batch.new do |form| %>
+  		<%= form.hidden_field(
+  			:purpose,
+  			value: 'general_ledger'
+  		) %>
+  		<%= form.submit('New Batch', class: 'btn btn-primary') %> 
+  	<% end %>
+  </div>
+</div>
+<div class="row my-3">
 	<% @batches.each do |batch| %>
-		<div class="row">
+		<div class="row p-3 bg-light-subtle rounded">
       <div class="col-auto">
         <%= link_to('Edit', edit_batch_path(batch), class: 'btn btn-primary') %>
       </div>
