@@ -175,6 +175,7 @@ import { createApp } from 'vue'
         $.ajax({
           url: `/batches/${this.batch.id}`,
           type: "PATCH",
+          dataType: 'json',
           headers: {
             "X-CSRF-Token":  $('[name=csrf-token]')[0].content,
           },

@@ -51,22 +51,24 @@ class BatchesController < ApplicationController
       }
       format.json {
         render json: {
-          message: @batch.errors.full_messages
-        }, status: :unprocessable_entity     
+          message: 'Success'
+        }, status: :ok
       }
     end
   end
 
   def error
-    flash.alert = @batch.errors.full_messages.join(', ')
+    errors = @batch.errors.full_messages.join(', ')
     respond_to do |format|
       format.html {
+        flash.now.alert = errors
         render :edit
       }
       format.json {
+        flash.alert = errors
         render json: {
-          message: 'Success'
-        }, status: :ok        
+          message: @batch.errors.full_messages
+        }, status: :unprocessable_entity        
       }
     end
   end
