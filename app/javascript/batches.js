@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 
   createApp({
-    name: "general_ledger",
+    name: "batches",
     mounted() {
       $.ajax({
         url: `/batches/${1}/edit`,

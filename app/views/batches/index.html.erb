@@ -3,7 +3,7 @@
   	<%= form_with model: Batch.new do |form| %>
   		<%= form.hidden_field(
   			:purpose,
-  			value: 'general_ledger'
+  			value: params[:purpose]
   		) %>
   		<%= form.submit('New Batch', class: 'btn btn-primary') %> 
   	<% end %>

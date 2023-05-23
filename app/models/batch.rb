@@ -12,8 +12,8 @@ class Batch < ApplicationRecord
 	}
 
 	enum :purpose, {
-		accounts_payable: 0,
-		accounts_receivable: 1,
+		payable: 0,
+		receivable: 1,
 		general_ledger: 2,
 	}
 

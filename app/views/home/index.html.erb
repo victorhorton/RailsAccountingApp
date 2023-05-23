@@ -5,10 +5,20 @@
         General Ledger
       </div>
       <ul class="list-group list-group-flush">
-        <%= link_to("GL Batches", batches_path, class: 'list-group-item') %>
+        <%= link_to("GL Batches", batches_path(purpose: 'general_ledger'), class: 'list-group-item') %>
       </ul>
       <ul class="list-group list-group-flush">
         <%= link_to("Accounts", accounts_path, class: 'list-group-item') %>
+      </ul>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <div class="card-header">
+        Accounts Payable
+      </div>
+      <ul class="list-group list-group-flush">
+        <%= link_to("AP Batches", batches_path(purpose: 'payable'), class: 'list-group-item') %>
       </ul>
     </div>
   </div>

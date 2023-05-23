@@ -1,14 +1,18 @@
 class BatchesController < ApplicationController
 	def index
     index_breadcrumbs
-		@batches = Batch.eager_load(tranzactions: :entries).unposted
+		@batches = Batch.eager_load(tranzactions: :entries).where(purpose: params[:purpose]).unposted
 	end
 
 	def create
 		@batch = Batch.new(batch_params)
 
 		if @batch.save
-			redirect_to edit_batch_path(@batch)
+      if @batch.purpose == 'general_ledger'
+			  redirect_to edit_batch_path(@batch)
+      else
+        redirect_to new_tranzaction_path(batch_id: @batch.id)
+      end
 		else
 			redirect_to batches_path
 		end
@@ -75,7 +79,7 @@ class BatchesController < ApplicationController
 
   def index_breadcrumbs
     add_breadcrumb "Home", :root_path
-    add_breadcrumb "Batches", :batches_path
+    add_breadcrumb "#{params[:purpose].titleize} Batches", batches_path(purpose: params[:purpose])
   end
 
   def edit_breadcrumbs
