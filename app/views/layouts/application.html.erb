@@ -13,11 +13,25 @@
   <body>
     <div class="container">
       <% flash.each do |type, msg| %>
-        <div class="alert alert-info">
+        <div
+          class="
+            alert
+            alert-<%= type == 'alert' ? 'danger' : 'success' %>
+            alert-dismissible
+            fade
+            show
+          "
+          role="alert"
+        >
           <%= msg %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
       <% end %>
-      <%= render_breadcrumbs separator: " / " %>  
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <%= render_breadcrumbs :tag => :li, :separator => "&nbsp/&nbsp" %>
+        </ol> 
+      </nav>
       <%= yield %>
     </div>
   </body>
