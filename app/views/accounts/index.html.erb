@@ -1,0 +1,28 @@
+<div class="row my-3">
+  <div class="col-auto">
+    <%= link_to('New Account', new_account_path, class: 'btn btn-primary') %>
+  </div>
+</div>
+<div class="row my-3">
+  <% @accounts.each do |account| %>
+    <div class="row my-1 p-3 bg-light-subtle rounded">
+      <div class="col-auto">
+        <%= link_to('Edit', edit_account_path(account), class: 'btn btn-primary') %>
+      </div>
+      <div class="col">
+        <%= account.id %>
+      </div>
+      <div class="col">
+        <%= account.name %>
+      </div>
+      <div class="col">
+        <%= account.account_type.titleize %>
+      </div>
+      <div class="col-auto">
+        <%= form_with(model: account, method: :delete) do |form| %>
+          <%= form.submit('Delete', class: 'btn btn-danger') %>
+        <% end %>
+      </div>      
+    </div> 
+  <% end %>
+</div>

@@ -1,0 +1,10 @@
+<div class="row">
+  <%= form_with model: @account do |form| %>
+    <%= render partial: 'form', locals: { form: form } %>
+    <div class="row my-2">
+      <div class="col-auto">
+        <%= form.submit('Update', class: 'btn btn-primary') %>
+      </div>
+    </div>
+  <% end %>
+</div>
