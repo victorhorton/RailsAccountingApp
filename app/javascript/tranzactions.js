@@ -36,8 +36,34 @@ import * as common from 'common'
       getAmount(entry) {
         return common.parseAmount(entry.amount);
       },
-      setAmount(entry, entryType) {
+      setAmount(entry, batchPurpose) {
+        let entryType = undefined;
         const entryAmount = parseFloat(event.currentTarget.value);
+        const batchIsPayable = batchPurpose == 'payable';
+        const entryIsNegative = entryAmount < 0;
+        const isPrimaryEntry = entry.designation == 'primary';
+
+        if (batchPurpose == 'payable')
+          if (entryIsNegative && isPrimaryEntry) {
+            entryType = 'debit'
+          } else if (!entryIsNegative && isPrimaryEntry) {
+            entryType = 'credit'
+          } else if (entryIsNegative && !isPrimaryEntry) {
+            entryType = 'credit'
+          } else {
+            entryType = 'debit'
+          }
+        else {
+          if (entryIsNegative && isPrimaryEntry) {
+            entryType = 'credit'
+          } else if (!entryIsNegative && isPrimaryEntry) {
+            entryType = 'debit'
+          } else if (entryIsNegative && !isPrimaryEntry) {
+            entryType = 'debit'
+          } else {
+            entryType = 'credit'
+          }
+        }
 
         if (entryAmount || entryAmount == 0) {
           entry.entry_type = entryType;
