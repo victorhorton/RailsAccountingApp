@@ -17,7 +17,11 @@
 	<% @batches.each do |batch| %>
 		<div class="row my-1 p-3 bg-light-subtle rounded">
       <div class="col-auto">
-        <%= link_to('Edit', edit_batch_path(batch), class: 'btn btn-primary') %>
+        <% if batch.purpose == 'general_ledger' %>
+          <%= link_to('Edit', edit_batch_path(batch), class: 'btn btn-primary') %>
+        <% else %>
+          <%= link_to('Add', new_tranzaction_path(batch_id: batch.id), class: 'btn btn-primary') %>
+        <% end %>
       </div>
 
       <%= form_with(model: batch, class: 'col') do |form| %>
@@ -48,5 +52,16 @@
         <% end %>
       </div>
     </div> 
+    <% if batch.purpose != 'general_ledger' %>
+      <div class="row">
+        <% batch.tranzactions.each do |tranzaction| %>
+          <div class="row">
+            <div class="col">
+              <%= tranzaction %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
 	<% end %>
 </div>
