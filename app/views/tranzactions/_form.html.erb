@@ -1,0 +1,45 @@
+<div class="row py-2">
+  <div class="col">
+    <label :for="tranzaction-company" class="form-input">Company</label>
+    <input
+      :id="tranzaction-company"
+      class="form-control"
+      list="company-datalist"
+      type="text"
+      name="company"
+      style="text-transform:uppercase"
+      :value="getCompany(tranzaction)"
+      @blur="setCompany(tranzaction)"
+    >
+  </div>
+  <div class="col">
+    <label :for="tranzaction-date" class="form-input">Date</label>
+    <input
+      :id="tranzaction-date"
+      class="form-control"
+      type="text"
+      name="date"
+      :value="getDate(tranzaction)"
+      @blur="setDate(tranzaction)"
+    >
+  </div>
+  <div class="col">
+    <label :for="reference-number" class="form-input">Reference Number</label>
+    <input
+      :id="reference-number"
+      class="form-control"
+      type="text"
+      v-model="tranzaction.reference_number"
+    >
+  </div>
+  <div class="col">
+    <label :for="document-amount" class="form-input">Document Amount</label>
+    <input
+      :id="document-amount"
+      class="form-control"
+      type="text"
+      :value="getAmount(primaryEntry)"
+      @blur="setAmount(primaryEntry, 'debit')"
+    >
+  </div>
+</div>
