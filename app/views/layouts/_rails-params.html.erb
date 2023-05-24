@@ -1,0 +1,7 @@
+<script type="text/javascript">
+  const railsParams = {
+    <% params.each do |key, param|%>
+      <%= key %>: "<%= param %>",
+    <% end %>
+  }
+</script>

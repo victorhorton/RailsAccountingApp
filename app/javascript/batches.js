@@ -4,7 +4,7 @@ import { createApp } from 'vue'
     name: "batches",
     mounted() {
       $.ajax({
-        url: `/batches/${1}/edit`,
+        url: `/batches/${railsParams.id}/edit`,
         type: "GET",
         dataType: 'json',
         success: resp => {
