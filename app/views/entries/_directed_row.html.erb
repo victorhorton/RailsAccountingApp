@@ -17,7 +17,7 @@
       type="text"
       name="amount"
       :value="getAmount(entry)"
-      @blur="setAmount(entry)"
+      @blur="setAmount(entry, batch.purpose)"
     >
   </div>
   <div class="col">

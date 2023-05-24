@@ -39,7 +39,7 @@
       class="form-control"
       type="text"
       :value="getAmount(primaryEntry)"
-      @blur="setAmount(primaryEntry, 'debit')"
+      @blur="setAmount(primaryEntry, batch.purpose)"
     >
   </div>
 </div>
