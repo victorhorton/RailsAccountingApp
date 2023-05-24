@@ -2,6 +2,17 @@ class TranzactionsController < ApplicationController
 
   def new
     @tranzaction = Tranzaction.new
+
+    respond_to do |format|
+      format.html {}
+      format.json {
+        @companies = Company.all
+        render json: {
+          tranzaction: ActiveModelSerializers::SerializableResource.new(@tranzaction, {serializer: DirectedBatchSerializer}).as_json,
+          companies: @companies
+        }
+      }
+    end
   end
 
   def create
