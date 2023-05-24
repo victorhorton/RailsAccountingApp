@@ -1,7 +1,7 @@
 class TranzactionsController < ApplicationController
 
   def new
-    @tranzaction = Tranzaction.new
+    @tranzaction = Tranzaction.new(batch_id: params[:batch_id])
 
     respond_to do |format|
       format.html {}
@@ -80,6 +80,7 @@ class TranzactionsController < ApplicationController
     params.require(:tranzaction).permit(
       :id,
       :company_id,
+      :batch_id,
       :date,
       :reference_number,
       :completed_at,
