@@ -2,7 +2,7 @@
   <%= form_with(model: @batch, id: 'edit-gl-batch') do |form| %>
     <div id="gl-entries">
       <template v-for="(entry, idx) in entries">
-        <%= render partial: '/entries/form_row' %>
+        <%= render partial: '/entries/gl_row' %>
       </template>
     </div>
     <button type="button" class="btn btn-primary" @click="submitForm">Save</button>

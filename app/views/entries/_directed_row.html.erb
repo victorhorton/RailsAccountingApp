@@ -1,0 +1,42 @@
+<div class="row py-2">
+  <div class="col">
+    <label :for="`entry-${idx}-account-id`" class="form-input">Account</label>
+    <input
+      :id="`entry-${idx}-account-id`"
+      class="form-control"
+      type="text"
+      name="account_id"
+      v-model="entry.account_id"
+    >
+  </div>
+  <div class="col">
+    <label :for="`entry-${idx}-amount`" class="form-input">Amount</label>
+    <input
+      :id="`entry-${idx}-amount`"
+      class="form-control"
+      type="text"
+      name="amount"
+      :value="getAmount(entry)"
+      @blur="setAmount(entry)"
+    >
+  </div>
+  <div class="col">
+    <label :for="`entry-${idx}-description`" class="form-input">Description</label>
+    <input
+      :id="`entry-${idx}-description`"
+      class="form-control"
+      type="text"
+      name="description"
+      v-model="entry.description"
+      @keydown.tab="entries.length === idx + 1 ? addEntry() : ''"
+    >
+  </div>
+  <div class="col-auto d-flex">
+    <button
+      :id="`entry-${idx}-delete`"
+      class="btn btn-danger align-self-end"
+      tabindex="-1"
+      @click="deleteEntry(entry)"
+    ><i class="fa-solid fa-trash"></i></button>
+  </div>
+</div>

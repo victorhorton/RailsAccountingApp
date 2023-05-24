@@ -4,8 +4,8 @@
       <%= render partial: 'form' %>
     </div>
     <div class="row">
-      <template v-for="(entry, idx) in entries">
-        <%= render partial: '/entries/form_row' %>
+      <template v-for="(entry, idx) in distributionEntries">
+        <%= render partial: '/entries/directed_row' %>
       </template>
     </div>
     <button type="button" class="btn btn-primary" @click="submitForm">Save</button>
