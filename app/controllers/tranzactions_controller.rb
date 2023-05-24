@@ -6,8 +6,10 @@ class TranzactionsController < ApplicationController
     respond_to do |format|
       format.html {}
       format.json {
+        @batch = Batch.find(params[:batch_id])
         @companies = Company.all
         render json: {
+          batch: @batch,
           tranzaction: ActiveModelSerializers::SerializableResource.new(@tranzaction, {serializer: DirectedBatchSerializer}).as_json,
           companies: @companies
         }

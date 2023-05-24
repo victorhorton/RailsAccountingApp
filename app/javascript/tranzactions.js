@@ -4,12 +4,30 @@ import * as common from 'common'
   createApp({
     name: "tranzactions",
     mounted() {
-      debugger
+      const tranzactionURL = railsParams.id ? `${railsParams.id}/edit` : 'new';
+      $.ajax({
+        url: `/tranzactions/${tranzactionURL}?batch_id=${railsParams.batch_id}`,
+        type: "GET",
+        dataType: 'json',
+        success: resp => {
+          this.batch = resp.batch;
+          this.tranzaction = resp.tranzaction;
+          this.companies = resp.companies;
+        },
+      });
     },
     data() {
       return {
+        batch: {},
         tranzaction: {
-          entries_attributes: [{}]
+          entries_attributes: [
+            {
+              designation: 'primary',
+            },
+            {
+              designation: 'distribution',
+            }
+          ]
         },
         companies: [{}]
       }

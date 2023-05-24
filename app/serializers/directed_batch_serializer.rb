@@ -4,8 +4,8 @@ class DirectedBatchSerializer < ActiveModel::Serializer
   def entries_attributes
     if object.entries.blank?
       return [
-        {designation: 'primary', position: 1, account_id: 2010},
-        {designation: 'distribution', position: 2}
+        {designation: 'primary', position: 1, account_id: 2010, entry_type: 'credit'},
+        {designation: 'distribution', position: 2, entry_type: 'debit'}
       ]
     else
       return object.entries.map{ |entry|
