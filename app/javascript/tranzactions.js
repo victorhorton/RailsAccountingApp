@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import * as common from 'common'
 
   createApp({
     name: "tranzactions",
