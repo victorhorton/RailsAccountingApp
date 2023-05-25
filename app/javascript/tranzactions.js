@@ -59,11 +59,26 @@ import * as common from 'common'
         entries.splice(entries.indexOf(entry), 1);
       },
       getAmount(entry) {
-        return common.parseAmount(entry.amount);
+        const batchisPayable = this.batch.purpose === 'payable';
+        const entryIsDebit = entry.entry_type == 'debit';
+        const isPrimaryEntry = entry.designation == 'primary';
+        let entryAmount = entry.amount;
+
+        if (
+          (batchisPayable && entryIsDebit && isPrimaryEntry) ||
+          (batchisPayable && !entryIsDebit && !isPrimaryEntry) ||
+          (!batchisPayable && !entryIsDebit && isPrimaryEntry) ||
+          (!batchisPayable && entryIsDebit && !isPrimaryEntry)
+        ) {
+          entryAmount *= -1;
+        }
+
+        return common.parseAmount(entryAmount);
       },
-      setAmount(entry, batchPurpose) {
+      setAmount(entry) {
         let entryType = undefined;
-        const entryAmount = parseFloat(event.currentTarget.value);
+        let entryAmount = parseFloat(event.currentTarget.value);
+        const batchPurpose = this.batch.purpose;
         const batchIsPayable = batchPurpose == 'payable';
         const entryIsNegative = entryAmount < 0;
         const isPrimaryEntry = entry.designation == 'primary';
@@ -71,20 +86,24 @@ import * as common from 'common'
         if (batchPurpose == 'payable')
           if (entryIsNegative && isPrimaryEntry) {
             entryType = 'debit'
+            entryAmount *= -1;
           } else if (!entryIsNegative && isPrimaryEntry) {
             entryType = 'credit'
           } else if (entryIsNegative && !isPrimaryEntry) {
             entryType = 'credit'
+            entryAmount *= -1;
           } else {
             entryType = 'debit'
           }
         else {
           if (entryIsNegative && isPrimaryEntry) {
             entryType = 'credit'
+            entryAmount *= -1;
           } else if (!entryIsNegative && isPrimaryEntry) {
             entryType = 'debit'
           } else if (entryIsNegative && !isPrimaryEntry) {
             entryType = 'debit'
+            entryAmount *= -1;
           } else {
             entryType = 'credit'
           }
