@@ -167,6 +167,21 @@ import * as common from 'common'
         return this.tranzaction.entries_attributes.filter(entry => {
           return entry.designation === 'distribution';
         })
+      },
+      debitEntries() {
+        return this.tranzaction.entries_attributes.filter(entry => entry.entry_type == 'debit');
+      },
+      creditEntries() {
+        return this.tranzaction.entries_attributes.filter(entry => entry.entry_type == 'credit');
+      },
+      debitTotal() {
+        return this.debitEntries.map(entry => entry.amount || 0).reduce((a, b) => a + b, 0)
+      },
+      creditTotal() {
+        return this.creditEntries.map(entry => entry.amount || 0).reduce((a, b) => a + b, 0)
+      },
+      amountToDistribute() {
+        return this.debitTotal - this.creditTotal;
       }
     }
   }).mount('#vue-tranzactions')
