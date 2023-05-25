@@ -1,12 +1,14 @@
 class TranzactionsController < ApplicationController
 
   def new
+    @batch = Batch.find(params[:batch_id])
     @tranzaction = Tranzaction.new(batch_id: params[:batch_id])
 
     respond_to do |format|
-      format.html {}
+      format.html {
+        new_breadcrumbs
+      }
       format.json {
-        @batch = Batch.find(params[:batch_id])
         @companies = Company.all
         render json: {
           batch: @batch,
@@ -29,7 +31,9 @@ class TranzactionsController < ApplicationController
   def edit
     @tranzaction = Tranzaction.eager_load(:batch, :entries).find(params[:id])
     respond_to do |format|
-      format.html {}
+      format.html {
+        edit_breadcrumbs
+      }
       format.json {
         @companies = Company.all
         render json: {
@@ -56,6 +60,18 @@ class TranzactionsController < ApplicationController
   end
 
   private
+
+  def new_breadcrumbs
+    add_breadcrumb "Home", :root_path
+    add_breadcrumb "#{@batch.purpose.titleize} Batches", batches_path(purpose: @batch.purpose)
+    add_breadcrumb "New", new_tranzaction_path
+  end
+
+  def edit_breadcrumbs
+    add_breadcrumb "Home", :root_path
+    add_breadcrumb "#{@tranzaction.batch.purpose.titleize} Batches", batches_path(purpose: @tranzaction.batch.purpose)
+    add_breadcrumb "Edit", edit_tranzaction_path(params[:id])
+  end
 
   def success
     flash.notice = "Saved"
