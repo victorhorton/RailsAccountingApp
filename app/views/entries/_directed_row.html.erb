@@ -28,15 +28,17 @@
       type="text"
       name="description"
       v-model="entry.description"
-      @keydown.tab="entries.length === idx + 1 ? addEntry() : ''"
+      @keydown.tab="distributionEntries.length === idx + 1 ? addEntry() : ''"
     >
   </div>
   <div class="col-auto d-flex">
     <button
       :id="`entry-${idx}-delete`"
+      type="button"
       class="btn btn-danger align-self-end"
       tabindex="-1"
       @click="deleteEntry(entry)"
+      :disabled="distributionEntries.length <= 1"
     ><i class="fa-solid fa-trash"></i></button>
   </div>
 </div>

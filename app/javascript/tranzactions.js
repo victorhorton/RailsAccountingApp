@@ -33,6 +33,31 @@ import * as common from 'common'
       }
     },
     methods: {
+      addEntry() {
+        const entries = this.tranzaction.entries_attributes;
+        const nextPosition = entries[entries.length - 1].position + 1
+        entries.push({
+          designation: 'distribution',
+          position: nextPosition
+        })
+      },
+      deleteEntry(entry) {
+        const entries = this.tranzaction.entries_attributes;
+        if (entries.length <= 2) {
+          return
+        }
+
+        if (entry.id != undefined) {
+          $.ajax({
+            url: `/entries/${entry.id}`,
+            type: "DELETE",
+            headers: {
+              "X-CSRF-Token":  $('[name=csrf-token]')[0].content,
+            },
+          });
+        }
+        entries.splice(entries.indexOf(entry), 1);
+      },
       getAmount(entry) {
         return common.parseAmount(entry.amount);
       },
