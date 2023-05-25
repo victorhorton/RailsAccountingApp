@@ -4,9 +4,13 @@ import * as common from 'common'
   createApp({
     name: "tranzactions",
     mounted() {
+      let url = `/tranzactions/new?batch_id=${railsParams.batch_id}`
+      if (railsParams.action === 'edit') {
+        url = `/tranzactions/${railsParams.id}/edit`
+      }
       const tranzactionURL = railsParams.id ? `${railsParams.id}/edit` : 'new';
       $.ajax({
-        url: `/tranzactions/${tranzactionURL}?batch_id=${railsParams.batch_id}`,
+        url,
         type: "GET",
         dataType: 'json',
         success: resp => {

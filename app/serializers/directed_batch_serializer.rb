@@ -1,5 +1,5 @@
 class DirectedBatchSerializer < ActiveModel::Serializer
-  attributes :id, :company_id, :date, :entries_attributes, :batch_id
+  attributes :id, :reference_number, :company_id, :date, :entries_attributes, :batch_id
 
   def entries_attributes
 

@@ -27,7 +27,18 @@ class TranzactionsController < ApplicationController
   end
 
   def edit
-
+    @tranzaction = Tranzaction.eager_load(:batch, :entries).find(params[:id])
+    respond_to do |format|
+      format.html {}
+      format.json {
+        @companies = Company.all
+        render json: {
+          batch: @tranzaction.batch,
+          tranzaction: ActiveModelSerializers::SerializableResource.new(@tranzaction, {serializer: DirectedBatchSerializer}).as_json,
+          companies: @companies
+        }
+      }
+    end
   end
 
   def update
