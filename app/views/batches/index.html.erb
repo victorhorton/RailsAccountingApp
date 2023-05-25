@@ -13,55 +13,69 @@
   	<% end %>
   </div>
 </div>
-<div class="row my-3">
+<div class="col my-3">
 	<% @batches.each do |batch| %>
 		<div class="row my-1 p-3 bg-light-subtle rounded">
-      <div class="col-auto">
-        <% if batch.purpose == 'general_ledger' %>
-          <%= link_to('Edit', edit_batch_path(batch), class: 'btn btn-primary') %>
-        <% else %>
-          <%= link_to('Add', new_tranzaction_path(batch_id: batch.id), class: 'btn btn-primary') %>
-        <% end %>
-      </div>
-
-      <%= form_with(model: batch, class: 'col') do |form| %>
+      <div class="col">
         <div class="row">
-          <div class="col">  
-            <%= form.text_field(
-              :name,
-              class: "form-control",
-              placeholder: 'Name'
-            ) %>
+          <div class="col-auto">
+            <% if batch.purpose == 'general_ledger' %>
+              <%= link_to('Edit', edit_batch_path(batch), class: 'btn btn-primary') %>
+            <% else %>
+              <%= link_to('Add', new_tranzaction_path(batch_id: batch.id), class: 'btn btn-primary') %>
+            <% end %>
           </div>
-          <div class="col">  
-            <%= form.text_field(
-              :comment,
-              class: "form-control",
-              placeholder: 'Comment'
-            ) %>
+
+          <%= form_with(model: batch, class: 'col') do |form| %>
+            <div class="row">
+              <div class="col">
+                <%= form.text_field(
+                  :name,
+                  class: "form-control",
+                  placeholder: 'Name'
+                ) %>
+              </div>
+              <div class="col">
+                <%= form.text_field(
+                  :comment,
+                  class: "form-control",
+                  placeholder: 'Comment'
+                ) %>
+              </div>
+            </div>
+          <% end %>
+          <div class="col-auto">
+            <%= form_with(model: batch) do |form| %>
+              <%= form.hidden_field(
+                :posted_at,
+                value: DateTime.now
+              ) %>
+              <%= form.submit("Post", class: 'btn btn-primary') %>
+            <% end %>
           </div>
         </div>
-      <% end %>
-      <div class="col-auto">
-        <%= form_with(model: batch) do |form| %>
-          <%= form.hidden_field(
-            :posted_at,
-            value: DateTime.now
-          ) %>
-          <%= form.submit("Post", class: 'btn btn-primary') %>
-        <% end %>
-      </div>
-    </div> 
-    <% if batch.purpose != 'general_ledger' %>
-      <div class="row">
-        <% batch.tranzactions.each do |tranzaction| %>
-          <div class="row">
-            <div class="col">
-              <%= tranzaction %>
+        <% if batch.purpose != 'general_ledger' %>
+          <div class="row mt-2 bg-body">
+            <table>
+              <% batch.tranzactions.each do |tranzaction| %>
+                <%= link_to(edit_tranzaction_path(tranzaction), class: 'hover p-2') do %>
+                  <div class="row">
+                    <div class="col">
+                      <%= tranzaction.company.name %>
+                    </div>
+                    <div class="col">
+                      <%= tranzaction.reference_number %>
+                    </div>
+                    <div class="col">
+                      <%= tranzaction.date %>
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
             </div>
           </div>
         <% end %>
       </div>
-    <% end %>
+    </div>
 	<% end %>
 </div>
