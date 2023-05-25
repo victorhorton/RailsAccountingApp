@@ -15,7 +15,7 @@
 </div>
 <div class="col my-3">
 	<% @batches.each do |batch| %>
-		<div class="row my-1 p-3 bg-light-subtle rounded">
+		<div class="row my-2 p-3 bg-light-subtle rounded">
       <div class="col">
         <div class="row">
           <div class="col-auto">
@@ -56,10 +56,10 @@
         </div>
         <% if batch.purpose != 'general_ledger' %>
           <div class="row mt-2 bg-body">
-            <table>
+            <div class="overflow-scroll mh-tranzactions">
               <% batch.tranzactions.each do |tranzaction| %>
-                <%= link_to(edit_tranzaction_path(tranzaction), class: 'hover p-2') do %>
-                  <div class="row">
+                <%= link_to(edit_tranzaction_path(tranzaction), class: 'hover') do %>
+                  <div class="row p-2">
                     <div class="col">
                       <%= tranzaction.company.name %>
                     </div>
