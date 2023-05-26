@@ -65,6 +65,7 @@ class DirectedBatchSerializer < ActiveModel::Serializer
     else
       return object.payments.map{ |payment|
         {
+          id: payment.id,
           payment_type: payment.payment_type,
           addressee: payment.addressee,
           memo: payment.memo,
