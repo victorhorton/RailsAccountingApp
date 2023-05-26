@@ -100,7 +100,7 @@ import * as common from 'common'
       },
       setAmount(entry) {
         let entryType = undefined;
-        let entryAmount = parseFloat(event.currentTarget.value);
+        let entryAmount = parseFloat(event.currentTarget.value.replace(',', ''));
         const batchPurpose = this.batch.purpose;
         const batchIsPayable = batchPurpose == 'payable';
         const entryIsNegative = entryAmount < 0;
@@ -168,7 +168,7 @@ import * as common from 'common'
         return common.parseAmount(entryAmount);
       },
       setPaymentAmount(payment) {
-        const entryAmount = parseFloat(event.currentTarget.value);
+        const entryAmount = parseFloat(event.currentTarget.value.replace(',', ''));
         const paymentEntries = payment.tranzaction_attributes.entries_attributes;
         paymentEntries.forEach(entry => {
           return entry.amount = entryAmount
