@@ -8,6 +8,7 @@ class Tranzaction < ApplicationRecord
 	has_and_belongs_to_many :payments
 
 	accepts_nested_attributes_for :entries
+	accepts_nested_attributes_for :payments
 
 	validates_presence_of :company_id, :date
 	validate :entries_cancel?

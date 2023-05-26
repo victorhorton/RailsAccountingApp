@@ -121,6 +121,31 @@ class TranzactionsController < ApplicationController
         :description,
         :position,
         :deleted_at,
+      ],
+      payments_attributes: [
+        :id,
+        :payment_type,
+        :addressee,
+        :memo,
+        tranzaction_attributes: [
+          :id,
+          :company_id,
+          :batch_id,
+          :date,
+          :reference_number,
+          :completed_at,
+          :deleted_at,
+          entries_attributes: [
+            :id,
+            :account_id,
+            :entry_type,
+            :amount,
+            :designation,
+            :description,
+            :position,
+            :deleted_at,
+          ],
+        ]
       ]
     )
   end
