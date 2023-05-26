@@ -57,7 +57,7 @@
         <% if batch.purpose != 'general_ledger' %>
           <div class="row mt-2 bg-body">
             <div class="overflow-scroll mh-tranzactions">
-              <% batch.tranzactions.each do |tranzaction| %>
+              <% batch.direceted_tranzactions.each do |tranzaction| %>
                 <%= link_to(edit_tranzaction_path(tranzaction), class: 'hover') do %>
                   <div class="row p-2">
                     <div class="col">
