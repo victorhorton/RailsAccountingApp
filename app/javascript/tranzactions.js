@@ -151,6 +151,34 @@ import * as common from 'common'
         const companyCode = event.currentTarget.value.toUpperCase();
         const company = this.companies.find(c => c.code === companyCode);
         this.tranzaction.company_id = company.id;
+        this.tranzaction.payments.forEach(payment => {
+          return payment.tranzaction_attributes.company_id = company.id
+        });
+      },
+      getPaymentAmount(payment) {
+        const entryAmount = payment.tranzaction_attributes.entries_attributes.find(e => {
+          return e.designation === 'primary'
+        }).amount
+
+        return common.parseAmount(entryAmount);
+      },
+      setPaymentAmount(payment) {
+        const entryAmount = parseFloat(event.currentTarget.value);
+        const paymentEntries = payment.tranzaction_attributes.entries_attributes;
+        paymentEntries.forEach(entry => {
+          return entry.amount = entryAmount
+        })
+      },
+      getPaymentAccount(payment) {
+        return payment.tranzaction_attributes.entries_attributes.find(e => {
+          return e.designation === 'distribution'
+        }).account_id
+      },
+      setPaymentAccount(payment) {
+        const paymentAccount = event.currentTarget.value;
+        payment.tranzaction_attributes.entries_attributes.find(e => {
+          return e.designation === 'distribution'
+        }).account_id = paymentAccount;
       },
       submitForm() {
         const isNew = railsParams.action === 'new'

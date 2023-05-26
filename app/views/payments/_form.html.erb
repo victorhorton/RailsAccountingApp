@@ -1,1 +1,74 @@
-asdf
+<div class="row py-2">
+  <div class="col-auto">
+    <label for="payment_type" class="form-input">Payment Type</label>
+    <%= select_tag(
+      :payment_type,
+      options_for_select(Payment.payment_types.map{|type, id| [type.titleize, type]}),
+      {
+        class: 'form-select',
+        'v-model': 'payment.payment_type'
+      }
+    ) %>
+  </div>
+</div>
+<div class="row py-2">
+  <div class="col">
+    <label for="payment-account-id" class="form-input">Account ID</label>
+    <input
+      id="payment-account-id"
+      class="form-control"
+      type="text"
+      :value="getPaymentAccount(payment)"
+      @blur="setPaymentAccount(payment)"
+    >
+  </div>
+  <div class="col">
+    <label for="payment-reference-number" class="form-input">Payment Number</label>
+    <input
+      id="payment-reference-number"
+      class="form-control"
+      type="text"
+      v-model="payment.tranzaction_attributes.reference_number"
+    >
+  </div>
+  <div class="col">
+    <label for="payment-date" class="form-input">Date</label>
+    <input
+      id="payment-date"
+      class="form-control"
+      type="text"
+      v-model="payment.tranzaction_attributes.date"
+    >
+  </div>
+  <div class="col">
+    <label for="payment-amount" class="form-input">Amount</label>
+    <input
+      :id="payment-amount"
+      class="form-control"
+      type="text"
+      name="amount"
+      :value="getPaymentAmount(payment)"
+      @blur="setPaymentAmount(payment)"
+    >
+  </div>
+</div>
+<div v-if="payment.payment_type === 'check'" class="row py-2">
+  <div class="col">
+    <label for="payment-addressee" class="form-input">Addressee</label>
+    <input
+      id="payment-addressee"
+      class="form-control"
+      type="text"
+      v-model="payment.addressee"
+    >
+  </div>
+  <div class="col">
+    <label for="payment-memo" class="form-input">Memo</label>
+    <input
+      id="payment-memo"
+      class="form-control"
+      type="text"
+      v-model="payment.memo"
+    >
+  </div>
+</div>
