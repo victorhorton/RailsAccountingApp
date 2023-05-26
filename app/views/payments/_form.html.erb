@@ -1,4 +1,4 @@
-<div class="row py-2">
+<div v-if ="payment.payment_type !== 'receipt'" class="row py-2">
   <div class="col-auto">
     <label for="payment_type" class="form-input">Payment Type</label>
     <%= select_tag(
@@ -23,7 +23,9 @@
     >
   </div>
   <div class="col">
-    <label for="payment-reference-number" class="form-input">Payment Number</label>
+    <label for="payment-reference-number" class="form-input">
+      {{ payment.payment_type === 'receipt' ? 'Receipt' : 'Payment' }} Number
+    </label>
     <input
       id="payment-reference-number"
       class="form-control"

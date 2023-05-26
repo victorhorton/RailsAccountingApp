@@ -8,6 +8,7 @@ class Payment < ApplicationRecord
     check: 0,
     wire: 1,
     credit_card: 2,
+    receipt: 3,
   }
 
 
