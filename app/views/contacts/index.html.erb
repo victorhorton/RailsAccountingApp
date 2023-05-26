@@ -1,14 +1,17 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Contacts</h1>
-
-<div id="contacts">
+<div class="row my-3">
+  <div class="col-auto">
+    <%= link_to('New', new_contact_path, class: 'btn btn-primary') %>
+  </div>
+</div>
+<div class="col my-3">
   <% @contacts.each do |contact| %>
-    <%= render contact %>
-    <p>
-      <%= link_to "Show this contact", contact %>
-    </p>
+    <div class="row my-2 p-3 bg-light-subtle rounded">
+      <div class="col"><%= contact.name %></div>
+      <div class="col"><%= contact.phone_number %></div>
+      <div class="col"><%= contact.email %></div>
+      <div class="col"><%= contact.address %></div>
+      <div class="col"><%= contact.description %></div>
+      <div class="col-auto"><%= link_to('Edit', edit_contact_path(contact), class: 'btn btn-primary') %></div>
+    </div>
   <% end %>
 </div>
-
-<%= link_to "New contact", new_contact_path %>

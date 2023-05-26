@@ -1,17 +1,93 @@
-<%= form_with(model: contact) do |form| %>
-  <% if contact.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(contact.errors.count, "error") %> prohibited this contact from being saved:</h2>
-
-      <ul>
-        <% contact.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div>
-    <%= form.submit %>
+<div class="row">
+  <div class="col">
+    <%= form.label(
+      :name,
+      'Name',
+      class: 'form-label'
+    ) %>
+    <%= form.text_field(
+      :name,
+      class: 'form-control'
+    ) %>
   </div>
-<% end %>
+  <div class="col">
+    <%= form.label(
+      :phone_number,
+      'Phone Number',
+      class: 'form-label'
+    ) %>
+    <%= form.text_field(
+      :phone_number,
+      placeholder: 'xxx-xxx-xxxx',
+      class: 'form-control'
+    ) %>
+  </div>
+  <div class="col">
+    <%= form.label(
+      :email,
+      'Email',
+      class: 'form-label'
+    ) %>
+    <%= form.text_field(
+      :email,
+      class: 'form-control'
+    ) %>
+  </div>
+  <div class="col">
+    <%= form.label(
+      :description,
+      'Description',
+      class: 'form-label'
+    ) %>
+    <%= form.text_field(
+      :description,
+      class: 'form-control'
+    ) %>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <%= form.label(
+      :address,
+      'Address',
+      class: 'form-label'
+    ) %>
+    <%= form.text_field(
+      :address,
+      class: 'form-control'
+    ) %>
+  </div>
+  <div class="col">
+    <%= form.label(
+      :city,
+      'City',
+      class: 'form-label'
+    ) %>
+    <%= form.text_field(
+      :city,
+      class: 'form-control'
+    ) %>
+  </div>
+  <div class="col">
+    <%= form.label(
+      :state,
+      'State',
+      class: 'form-label'
+    ) %>
+    <%= form.text_field(
+      :state,
+      class: 'form-control'
+    ) %>
+  </div>
+  <div class="col">
+    <%= form.label(
+      :zip,
+      'Zip',
+      class: 'form-label'
+    ) %>
+    <%= form.text_field(
+      :zip,
+      class: 'form-control'
+    ) %>
+  </div>
+</div>
