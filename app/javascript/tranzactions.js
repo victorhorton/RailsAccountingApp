@@ -50,6 +50,11 @@ import * as common from 'common'
         companies: [{}]
       }
     },
+    watch: {
+      invoiceCompleted(newValue, oldValue) {
+        this.tranzaction.completed_at = newValue;
+      }
+    },
     methods: {
       addEntry() {
         const entries = this.tranzaction.entries_attributes;
@@ -231,6 +236,34 @@ import * as common from 'common'
       },
       amountToDistribute() {
         return this.debitTotal - this.creditTotal;
+      },
+      invoiceAmount() {
+        let invoiceAmount = this.primaryEntry.amount;
+        if (this.primaryEntry.entry_type === 'credit') {
+          invoiceAmount *= -1;
+        }
+        return invoiceAmount;
+      },
+      paymentTotal() {
+        return this.payments.map(payment => {
+          const primaryEntry = payment.tranzaction_attributes.entries_attributes.find(entry => {
+            return entry.designation === 'primary'
+          });
+
+          let primaryAmount = primaryEntry.amount;
+
+          if (primaryEntry.entry_type === 'credit') {
+            primaryAmount *= -1;
+          }
+          return primaryAmount
+        }).flat().reduce((a, b) => a + b, 0)
+      },
+      invoiceCompleted() {
+        if (this.invoiceAmount === this.paymentTotal * -1) {
+          return new Date().toISOString().slice(0, 19).replace('T', ' ');
+        } else {
+          return null;
+        }
       }
     }
   }).mount('#vue-tranzactions')
