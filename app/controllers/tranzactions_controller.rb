@@ -1,5 +1,7 @@
 class TranzactionsController < ApplicationController
 
+  before_action :is_editable, only: [:edit, :update]
+
   def new
     @batch = Batch.find(params[:batch_id])
     @tranzaction = Tranzaction.new(batch_id: params[:batch_id])
@@ -100,6 +102,14 @@ class TranzactionsController < ApplicationController
           message: @tranzaction.errors.full_messages
         }, status: :unprocessable_entity
       }
+    end
+  end
+
+  def is_editable
+    tranzaction = Tranzaction.eager_load(:batch, :payment).find(params[:id])
+    unless tranzaction.payment.nil? && tranzaction.batch.pending?
+      flash.alert = "Transaction is uneditable"
+      redirect_to batches_path(purpose: tranzaction.batch.purpose)
     end
   end
 

@@ -21,4 +21,19 @@ class Batch < ApplicationRecord
 		where(posted_at: nil)
 	end
 
+	def direceted_tranzactions
+		tranzactions.select{|tranzaction|
+			tranzaction.payment.nil?
+		}
+	end
+
+	def posted?
+		posted_at.nil? ? false : true
+	end
+
+
+	def pending?
+		!posted?
+	end
+
 end
