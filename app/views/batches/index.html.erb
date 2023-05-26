@@ -67,7 +67,7 @@
                       <%= tranzaction.reference_number %>
                     </div>
                     <div class="col">
-                      <%= tranzaction.date %>
+                      <%= tranzaction.date.to_fs(:masked) %>
                     </div>
                   </div>
                 <% end %>
