@@ -8,6 +8,11 @@
         <%= render partial: '/entries/directed_row' %>
       </template>
     </div>
+    <div class="row">
+      <template v-for="(payment, idx) in payments">
+        <%= render partial: '/payments/form' %>
+      </template>
+    </div>
     <button type="button" class="btn btn-primary" @click="submitForm">Save</button>
   <% end %>
 </div>

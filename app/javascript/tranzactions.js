@@ -162,6 +162,9 @@ import * as common from 'common'
       }
     },
     computed: {
+      payments() {
+        return this.tranzaction.payments_attributes
+      },
       primaryEntry() {
         return this.tranzaction.entries_attributes.find(entry => {
           return entry.designation === 'primary';

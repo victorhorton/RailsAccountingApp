@@ -1,5 +1,5 @@
 class DirectedBatchSerializer < ActiveModel::Serializer
-  attributes :id, :reference_number, :company_id, :date, :entries_attributes, :batch_id
+  attributes :id, :reference_number, :company_id, :date, :entries_attributes, :batch_id, :payments_attributes
 
   def entries_attributes
 
@@ -32,4 +32,19 @@ class DirectedBatchSerializer < ActiveModel::Serializer
       }
     end
   end
+
+  def payments_attributes
+    if object.payments.blank?
+      return [
+        {
+          tranzaction_attributes: {
+            entries_attributes: [{}]
+          }
+        }
+      ]
+    else
+
+    end
+  end
+
 end
