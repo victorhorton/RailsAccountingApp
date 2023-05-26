@@ -156,7 +156,7 @@ import * as common from 'common'
         const companyCode = event.currentTarget.value.toUpperCase();
         const company = this.companies.find(c => c.code === companyCode);
         this.tranzaction.company_id = company.id;
-        this.tranzaction.payments.forEach(payment => {
+        this.payments.forEach(payment => {
           return payment.tranzaction_attributes.company_id = company.id
         });
       },
