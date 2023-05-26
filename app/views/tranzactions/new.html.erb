@@ -3,9 +3,16 @@
     <div class="row">
       <%= render partial: 'form' %>
     </div>
+    <hr/>
     <div class="row">
       <template v-for="(entry, idx) in distributionEntries">
         <%= render partial: '/entries/directed_row' %>
+      </template>
+    </div>
+    <hr/>
+    <div class="row">
+      <template v-for="(payment, idx) in payments">
+        <%= render partial: '/payments/form' %>
       </template>
     </div>
     <button type="button" class="btn btn-primary" @click="submitForm">Save</button>

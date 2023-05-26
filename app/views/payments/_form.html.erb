@@ -39,7 +39,8 @@
       id="payment-date"
       class="form-control"
       type="text"
-      v-model="payment.tranzaction_attributes.date"
+      :value="getDate(payment.tranzaction_attributes)"
+      @blur="setDate(payment.tranzaction_attributes)"
     >
   </div>
   <div class="col">
