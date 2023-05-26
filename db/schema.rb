@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_25_232731) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_26_004116) do
   create_table "accounts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.integer "account_type"
@@ -62,6 +62,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_25_232731) do
     t.index ["account_id"], name: "index_entries_on_account_id"
     t.index ["deleted_at"], name: "index_entries_on_deleted_at"
     t.index ["tranzaction_id"], name: "index_entries_on_tranzaction_id"
+  end
+
+  create_table "payments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "tranzaction_id"
+    t.integer "payment_type"
+    t.string "addressee"
+    t.string "memo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tranzaction_id"], name: "index_payments_on_tranzaction_id"
+  end
+
+  create_table "payments_tranzactions", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "payment_id", null: false
+    t.bigint "tranzaction_id", null: false
   end
 
   create_table "tranzactions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|

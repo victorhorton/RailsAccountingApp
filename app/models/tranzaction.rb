@@ -3,7 +3,9 @@ class Tranzaction < ApplicationRecord
 	
 	belongs_to :batch
 	belongs_to :company
+	has_one :payment, dependent: :destroy
 	has_many :entries, dependent: :destroy
+	has_and_belongs_to_many :payments
 
 	accepts_nested_attributes_for :entries
 
