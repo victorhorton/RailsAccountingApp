@@ -31,6 +31,20 @@ import * as common from 'common'
             {
               designation: 'distribution',
             }
+          ],
+          payments_attributes: [
+            {
+              tranzaction_attributes: {
+                entries_attributes: [
+                  {
+                    designation: 'primary',
+                  },
+                  {
+                    designation: 'distribution',
+                  }
+                ],
+              }
+            }
           ]
         },
         companies: [{}]
