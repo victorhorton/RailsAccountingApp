@@ -8,5 +8,5 @@ Rails.application.routes.draw do
   resources :batches, except: :new
   resources :entries, only: :destroy
   resources :tranzactions
-  resources :accounts
+  resources :accounts, except: [:show, :destroy]
 end
