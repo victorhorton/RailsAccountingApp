@@ -1,0 +1,66 @@
+*
+  font-family: 'Lato', Helvetica, sans-serif
+
+@page
+  margin-top: 0
+  margin-bottom: 0
+
+body
+  padding-top: 72px
+  padding-bottom: 72px
+
+.payment-date
+  position: absolute
+  top: 0.85in
+  left: 7.3125in
+
+.payment-addressee
+  position: absolute
+  top: 1.415in
+  left: 1.21875in
+  width: 5.125in
+
+.payment-amount
+  position: absolute
+  top: 1.46in
+  left: 7.18in
+  width: 1.28125in
+  overflow: hidden
+
+.payment-amount.value
+  float: right
+  z-index: 2
+  background-color: white
+  padding-left: 0.25em
+
+.payment-amount.asterisk:before
+  content: "****************"
+  position: absolute
+  z-index: -1
+
+.payment-amount-words
+  position: absolute
+  top: 1.82125in
+  left: 0.21875in
+  width: 6in
+
+.payment-memo
+  position: absolute
+  top: 2.865625in
+  left: 0.56in
+  width: 4in
+  height: 0.2in
+  display: flex
+  flex-wrap: wrap
+  align-content: flex-end
+
+.payment-contact-address
+  position: absolute
+  top: 2.33in
+  left: 1in
+  width: 4in
+  height: 0.5in
+  font-size: 0.75rem
+
+.payment-contact-addressdiv
+  margin-bottom: -0.3rem

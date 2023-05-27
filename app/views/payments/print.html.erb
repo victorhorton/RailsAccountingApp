@@ -1,0 +1,30 @@
+<div id="vue-payments">
+  <div class="payment-proper">
+    <div class="payment-date">
+      <%= @payment.tranzaction.date.to_fs(:masked) %>
+    </div>
+    <div class="payment-row">
+      <div class="payment-addressee">
+        <%= @payment.addressee %>
+      </div>
+      <div class="payment-amount">
+        <span class="asterisk"></span>
+        <span class="value"><%= @payment.tranzaction.document_amount %></span>
+      </div>
+    </div>
+    <div class="payment-amount-words">
+      <span>*** <%= @payment.tranzaction.primary_entry.checkify %> ***</span>
+    </div>
+    <div class="payment-contact-address">
+      <div class="row"><%= @payment.addressee %></div>
+      <div class="row">
+        <%#= @payment.tranzaction.contact.city %>,
+        <%#= @payment.tranzaction.contact.state %>
+        <%#= @payment.tranzaction.contact.zip %>
+      </div>
+    </div>
+    <div class="payment-memo">
+      <%= @payment.memo %><br>
+    </div>
+  </div>
+</div>

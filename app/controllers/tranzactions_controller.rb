@@ -83,6 +83,7 @@ class TranzactionsController < ApplicationController
       }
       format.json {
         render json: {
+          payment_id: @tranzaction.payments.first.id,
           message: 'Success'
         }, status: :ok
       }
