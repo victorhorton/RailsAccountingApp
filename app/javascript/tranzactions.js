@@ -17,6 +17,7 @@ import * as common from 'common'
           this.batch = resp.batch;
           this.tranzaction = resp.tranzaction;
           this.companies = resp.companies;
+          this.contacts = resp.contacts;
         },
       });
     },
@@ -47,7 +48,8 @@ import * as common from 'common'
             }
           ]
         },
-        companies: [{}]
+        companies: [{}],
+        contacts: [{}]
       }
     },
     watch: {

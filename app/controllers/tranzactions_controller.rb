@@ -13,10 +13,12 @@ class TranzactionsController < ApplicationController
       }
       format.json {
         @companies = Company.all
+        @contacts = Contact.all
         render json: {
           batch: @batch,
           tranzaction: ActiveModelSerializers::SerializableResource.new(@tranzaction, {serializer: DirectedBatchSerializer}).as_json,
-          companies: @companies
+          companies: @companies,
+          contacts: @contacts
         }
       }
     end
@@ -39,10 +41,12 @@ class TranzactionsController < ApplicationController
       }
       format.json {
         @companies = Company.all
+        @contacts = Contact.all
         render json: {
           batch: @tranzaction.batch,
           tranzaction: ActiveModelSerializers::SerializableResource.new(@tranzaction, {serializer: DirectedBatchSerializer}).as_json,
-          companies: @companies
+          companies: @companies,
+          contacts: @contacts
         }
       }
     end

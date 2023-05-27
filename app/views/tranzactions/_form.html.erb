@@ -43,3 +43,15 @@
     >
   </div>
 </div>
+
+<datalist id="company-datalist">
+  <template v-for="company in companies">
+    <option>{{company.code}}</option>
+  </template>
+</datalist>
+
+<datalist id="contact-datalist">
+  <template v-for="contact in contacts">
+    <option>{{contact.name}}</option>
+  </template>
+</datalist>
