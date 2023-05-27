@@ -30,6 +30,9 @@ gem "jbuilder"
 # Adds soft delete feature
 gem 'acts_as_paranoid'
 
+# Humanize numbers
+gem 'humanize'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 
