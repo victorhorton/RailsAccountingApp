@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_26_004116) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_27_205310) do
   create_table "accounts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.integer "account_type"
@@ -82,6 +82,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_26_004116) do
   create_table "tranzactions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "batch_id"
     t.bigint "company_id", null: false
+    t.bigint "contact_id"
     t.date "date"
     t.string "reference_number"
     t.datetime "completed_at"
@@ -90,6 +91,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_26_004116) do
     t.datetime "deleted_at"
     t.index ["batch_id"], name: "index_tranzactions_on_batch_id"
     t.index ["company_id"], name: "index_tranzactions_on_company_id"
+    t.index ["contact_id"], name: "index_tranzactions_on_contact_id"
     t.index ["deleted_at"], name: "index_tranzactions_on_deleted_at"
   end
 
