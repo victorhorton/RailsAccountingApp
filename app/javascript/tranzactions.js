@@ -179,6 +179,28 @@ import * as common from 'common'
           return e.designation === 'distribution'
         }).account_id
       },
+      printAndSubmitForm() {
+        const isNew = railsParams.action === 'new'
+        const url = isNew ? '/tranzactions' : `/tranzactions/${this.tranzaction.id}`;
+        const type = isNew ? 'POST' : 'PATCH';
+        $.ajax({
+          url,
+          type,
+          dataType: 'json',
+          headers: {
+            "X-CSRF-Token":  $('[name=csrf-token]')[0].content,
+          },
+          data: {
+            tranzaction: this.tranzaction
+          },
+          success:  resp => {
+            window.location = `/payments/${resp.payment_id}/print`
+          },
+          error:  resp => {
+            location.reload()
+          }
+        });
+      },
       setPaymentAccount(payment) {
         const paymentAccount = event.currentTarget.value;
         payment.tranzaction_attributes.entries_attributes.find(e => {

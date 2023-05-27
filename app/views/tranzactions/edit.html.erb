@@ -13,6 +13,13 @@
         <%= render partial: '/payments/form' %>
       </template>
     </div>
-    <button type="button" class="btn btn-primary" @click="submitForm">Save</button>
+    <div class="row">
+      <div class="col-auto">
+        <button type="button" class="btn btn-primary" @click="submitForm">Save</button>
+      </div>
+      <div class="col-auto">
+        <button type="button" class="btn btn-primary" @click="printAndSubmitForm">Print</button>
+      </div>
+    </div>
   <% end %>
 </div>
