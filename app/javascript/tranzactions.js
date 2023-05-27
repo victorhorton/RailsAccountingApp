@@ -231,6 +231,9 @@ import * as common from 'common'
       }
     },
     computed: {
+      checksPrintable() {
+        return !this.payments.map(payment => payment.payment_type).includes('check')
+      },
       payments() {
         return this.tranzaction.payments_attributes
       },

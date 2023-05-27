@@ -20,7 +20,12 @@
         <button type="button" class="btn btn-primary" @click="submitForm">Save</button>
       </div>
       <div class="col-auto">
-        <button type="button" class="btn btn-primary" @click="printAndSubmitForm">Print</button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          @click="printAndSubmitForm"
+          :disabled="checksPrintable"
+        >Print</button>
       </div>
     </div>
   <% end %>
