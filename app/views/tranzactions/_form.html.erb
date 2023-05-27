@@ -1,5 +1,28 @@
 <div class="row py-2">
   <div class="col">
+    <label for="tranzaction-contact" class="form-input">Contact</label>
+    <input
+      id="tranzaction-contact"
+      class="form-control"
+      list="contact-datalist"
+      type="text"
+      name="contact"
+      :value="getContact(tranzaction)"
+      @blur="setContact(tranzaction)"
+    >
+  </div>
+  <div class="col">
+    <label for="reference-number" class="form-input">Reference Number</label>
+    <input
+      id="reference-number"
+      class="form-control"
+      type="text"
+      v-model="tranzaction.reference_number"
+    >
+  </div>
+</div>
+<div class="row py-2">
+  <div class="col">
     <label for="tranzaction-company" class="form-input">Company</label>
     <input
       id="tranzaction-company"
@@ -21,15 +44,6 @@
       name="date"
       :value="getDate(tranzaction)"
       @blur="setDate(tranzaction)"
-    >
-  </div>
-  <div class="col">
-    <label for="reference-number" class="form-input">Reference Number</label>
-    <input
-      id="reference-number"
-      class="form-control"
-      type="text"
-      v-model="tranzaction.reference_number"
     >
   </div>
   <div class="col">

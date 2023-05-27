@@ -148,6 +148,20 @@ import * as common from 'common'
         const date = event.currentTarget.value;
         tranzaction.date = common.formatDate(date);
       },
+      getContact(tranzaction) {
+        if (!tranzaction.contact_id) {
+          return null
+        }
+        return this.contacts.find(c => c.id === tranzaction.contact_id).name
+      },
+      setContact(tranzaction) {
+        const contactName = event.currentTarget.value;
+        const contact = this.contacts.find(c => c.name.toUpperCase() === contactName.toUpperCase());
+        this.tranzaction.contact_id = contact.id;
+        this.payments.forEach(payment => {
+          return payment.tranzaction_attributes.contact_id = contact.id;
+        });
+      },
       getCompany(tranzaction) {
         if (!tranzaction.company_id) {
           return null
