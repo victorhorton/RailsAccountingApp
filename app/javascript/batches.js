@@ -161,6 +161,10 @@ import { createApp } from 'vue'
           return t.entries_attributes.includes(entry)
         }).company_id;
 
+        if (!company_id) {
+          return
+        }
+
         return this.companies.find(c => c.id === company_id).code;
       },
       setCompany(entry) {
