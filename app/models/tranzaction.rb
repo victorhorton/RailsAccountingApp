@@ -32,6 +32,14 @@ class Tranzaction < ApplicationRecord
 		debit_entries.pluck(:amount).compact.sum
 	end
 
+	def document_amount
+		primary_entry.amount
+	end
+
+	def primary_entry
+		entries.find{|entry| entry.designation == 'primary'}
+	end
+
 	private
 
 	def entries_cancel?
