@@ -143,6 +143,7 @@ class TranzactionsController < ApplicationController
     params.require(:tranzaction).permit(
       :id,
       :company_id,
+      :contact_id,
       :batch_id,
       :date,
       :reference_number,
@@ -166,6 +167,7 @@ class TranzactionsController < ApplicationController
         tranzaction_attributes: [
           :id,
           :company_id,
+          :contact_id,
           :batch_id,
           :date,
           :reference_number,
