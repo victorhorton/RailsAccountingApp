@@ -9,4 +9,9 @@ Rails.application.routes.draw do
   resources :entries, only: :destroy
   resources :tranzactions
   resources :accounts, except: [:show, :destroy]
+  resources :payments, only: [:print, :update] do
+    member do
+      get :print
+    end
+  end
 end
