@@ -183,7 +183,7 @@ import { createApp } from 'vue'
             batch: this.batch
           },
           success:  e => {
-            window.location = '/batches'
+            window.location = `/batches?purpose=${this.batch.purpose}`
           },
           error:  e => {
             location.reload()
