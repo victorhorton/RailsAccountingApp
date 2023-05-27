@@ -16,6 +16,10 @@ class Tranzaction < ApplicationRecord
 		return obj[:value].map{|t| t.errors.full_messages}.flatten.compact.uniq.join(', ')
 	}
 
+	def check_payments
+		payments.select{|payment| payment.payment_type == 'check'}
+	end
+
 	def credit_entries
 		entries.select{|entry| entry.entry_type == 'credit'}
 	end
