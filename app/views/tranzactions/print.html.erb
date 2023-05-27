@@ -18,10 +18,11 @@
       </div>
       <div class="payment-contact-address">
         <div class="row"><%= payment.addressee %></div>
+        <div class="row"><%= payment.tranzaction.contact.address %></div>
         <div class="row">
-          <%#= payment.tranzaction.contact.city %>,
-          <%#= payment.tranzaction.contact.state %>
-          <%#= payment.tranzaction.contact.zip %>
+          <%= payment.tranzaction.contact.city %>,
+          <%= payment.tranzaction.contact.state %>
+          <%= payment.tranzaction.contact.zip %>
         </div>
       </div>
       <div class="payment-memo">
