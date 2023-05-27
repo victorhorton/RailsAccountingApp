@@ -1,5 +1,6 @@
 class TranzactionsController < ApplicationController
 
+  layout :determine_layout
   before_action :is_editable, only: [:edit, :update]
 
   def new
@@ -61,6 +62,19 @@ class TranzactionsController < ApplicationController
     tranzaction.destroy
   end
 
+  def print
+    @tranzaction = Tranzaction.eager_load(:batch, payments: {tranzaction: :entries}).find(params[:id])
+    respond_to do |format|
+      format.html  {}
+      format.json  {
+        render json: {
+          tranzaction: ActiveModelSerializers::SerializableResource.new(@tranzaction, {serializer: PrintPaymentsSerializer}).as_json,
+          batch: @tranzaction.batch
+        }
+      }
+    end
+  end
+
   private
 
   def new_breadcrumbs
@@ -75,6 +89,14 @@ class TranzactionsController < ApplicationController
     add_breadcrumb "Edit", edit_tranzaction_path(params[:id])
   end
 
+  def determine_layout
+    if params[:action] == 'print'
+      'print'
+    else
+      'application'
+    end
+  end
+
   def success
     flash.notice = "Saved"
     respond_to do |format|
@@ -83,7 +105,6 @@ class TranzactionsController < ApplicationController
       }
       format.json {
         render json: {
-          payment_id: @tranzaction.payments.first.id,
           message: 'Success'
         }, status: :ok
       }

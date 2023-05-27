@@ -1,9 +1,7 @@
 class PaymentsController < ApplicationController
 
-  layout :determine_layout
-
   def print
-    @payment = Payment.find(params[:id])
+    @payment = Payment.eager_load(tranzaction: :batch).find(params[:id])
 
     respond_to do |format|
       format.html {}
@@ -14,7 +12,8 @@ class PaymentsController < ApplicationController
             tranzaction_attributes: {
               id: @payment.tranzaction.id
             }
-          }
+          },
+          batch: @payment.tranzaction.batch
         }
       }
     end
@@ -70,13 +69,5 @@ class PaymentsController < ApplicationController
         :completed_at
       ]
     )
-  end
-
-  def determine_layout
-    if params[:action] == 'print'
-      'print'
-    else
-      'application'
-    end
   end
 end

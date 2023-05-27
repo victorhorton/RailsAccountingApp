@@ -48,41 +48,60 @@ createApp({
     })
 
     $.ajax({
-      url: `/payments/${railsParams.id}/print`,
+      url: `/tranzactions/${railsParams.id}/print`,
       type: "GET",
       dataType: 'json',
       success: resp => {
-        this.payment = resp.payment;
+        this.tranzaction = resp.tranzaction;
+        this.batch = resp.batch;
       },
     });
   },
   data() {
     return {
-      payment: {
-        tranzaction_attributes: {
+      tranzaction: {
+        payments_attributes: [
+          {
+            tranzaction_attributes: {
 
-        }
-      }
+            }
+          }
+        ]
+      },
+      batch: {}
     }
   },
   methods: {
     submitForm() {
 
       const completed_at = new Date().toISOString().slice(0, 19).replace('T', ' ');
-      this.payment.tranzaction_attributes.completed_at = completed_at;
+
+      const payments_attributes = this.tranzaction.payments_attributes.map(payment => {
+        return {
+          id: payment.id,
+          tranzaction_attributes: {
+            id: payment.tranzaction_attributes.id,
+            completed_at
+          }
+        }
+      });
+
+      const tranzaction = {
+        id: this.tranzaction.id,
+        payments_attributes
+      };
 
       $.ajax({
-        url: `/payments/${this.payment.id}`,
+        url: `/tranzactions/${this.tranzaction.id}`,
         type: 'PATCH',
         dataType: 'json',
         headers: {
           "X-CSRF-Token": $('[name=csrf-token]')[0].content,
         },
         data: {
-          payment: this.payment
+          tranzaction
         },
         success:  e => {
-          debugger
           window.location = `/batches?purpose=${this.batch.purpose}`
         },
         error:  e => {

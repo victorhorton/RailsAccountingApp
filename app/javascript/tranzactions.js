@@ -194,7 +194,7 @@ import * as common from 'common'
             tranzaction: this.tranzaction
           },
           success:  resp => {
-            window.location = `/payments/${resp.payment_id}/print`
+            window.location = `/tranzactions/${this.tranzaction.id}/print`
           },
           error:  resp => {
             location.reload()

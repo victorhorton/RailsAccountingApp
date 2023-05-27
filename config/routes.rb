@@ -7,11 +7,11 @@ Rails.application.routes.draw do
   root "home#index"
   resources :batches, except: :new
   resources :entries, only: :destroy
-  resources :tranzactions
-  resources :accounts, except: [:show, :destroy]
-  resources :payments, only: [:print, :update] do
+  resources :tranzactions do
     member do
       get :print
     end
   end
+  resources :accounts, except: [:show, :destroy]
+  resources :payments, only: [:print, :update]
 end
