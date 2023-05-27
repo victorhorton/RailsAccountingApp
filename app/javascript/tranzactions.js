@@ -180,6 +180,7 @@ import * as common from 'common'
         }).account_id
       },
       printAndSubmitForm() {
+        $('button').prop("disabled",true)
         const isNew = railsParams.action === 'new'
         const url = isNew ? '/tranzactions' : `/tranzactions/${this.tranzaction.id}`;
         const type = isNew ? 'POST' : 'PATCH';
@@ -208,6 +209,7 @@ import * as common from 'common'
         }).account_id = paymentAccount;
       },
       submitForm() {
+        $('button').prop("disabled",true)
         const isNew = railsParams.action === 'new'
         const url = isNew ? '/tranzactions' : `/tranzactions/${this.tranzaction.id}`;
         const type = isNew ? 'POST' : 'PATCH';
