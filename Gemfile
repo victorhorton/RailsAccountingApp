@@ -33,6 +33,8 @@ gem 'acts_as_paranoid'
 # Humanize numbers
 gem 'humanize'
 
+# Add backend datatables
+gem 'ajax-datatables-rails'
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 

@@ -3,6 +3,7 @@
 import "vue"
 import "jquery"
 import "bootstrap"
+import "datatables"
 import "controllers"
 import "common"
 import "batches"
