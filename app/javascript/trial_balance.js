@@ -7,7 +7,7 @@ $(document).ready(function() {
     processing: true,
     serverSide: true,
     dom: 'ltiprB',
-    buttons: 'excel'
+    buttons: ['excel'],
     ajax: {
       url: $('#trial-balance-datatable').data('source')
     },
