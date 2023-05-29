@@ -49,7 +49,7 @@ class BatchesController < ApplicationController
     flash.notice = "Saved"
     respond_to do |format|
       format.html {
-        redirect_to batches_path
+        redirect_to batches_path(purpose: @batch.purpose)
       }
       format.json {
         render json: {
