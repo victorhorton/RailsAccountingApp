@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import * as common from 'common'
 
   createApp({
     name: "batches",
@@ -80,17 +81,7 @@ import { createApp } from 'vue'
       },
       getAmount(entry, entryType) {
         if (entry.entry_type === entryType) {
-          let amount = `${entry.amount}`;
-          const splitAmount = amount.split('.');
-          const wholeNumber = parseFloat(splitAmount[0]).toLocaleString("en-US");
-          let decimalNumber = splitAmount[1];
-          if (decimalNumber == undefined || decimalNumber.length == 0) {
-            decimalNumber = '00';
-          } else if (decimalNumber.length == 1) {
-            decimalNumber = `${decimalNumber}0`;
-          }
-
-          return `${wholeNumber}.${decimalNumber}`;
+          return common.parseAmount(entry.amount);
         } else {
           return
         }
@@ -108,33 +99,18 @@ import { createApp } from 'vue'
 
       },
       getDate(entry) {
-        const date = this.batch.tranzactions_attributes.find(t => t.entries_attributes.includes(entry)).date;
-        if (!date) {
-          return
-        }
-        const splitDate = date.split('-');
-        const splitMonth = splitDate[1];
-        const splitDay = splitDate[2];
-        const splitYear = splitDate[0].substring(2, 4);
-        return `${splitMonth}-${splitDay}-${splitYear}`;        
+        const date = this.batch.tranzactions_attributes.find(t => {
+          return t.entries_attributes.includes(entry)
+        }).date;
+        return common.parseDate(date);
       },
       deleteEntry(entry) {
         const tranzactions = this.batch.tranzactions_attributes;
         const tranzaction = tranzactions.find(t => {
           return t.entries_attributes.includes(entry)
         });
-        const entries = tranzaction.entries_attributes;
 
-        if (entry.id != undefined) {
-          $.ajax({
-            url: `/entries/${entry.id}`,
-            type: "DELETE",
-            headers: {
-              "X-CSRF-Token":  $('[name=csrf-token]')[0].content,
-            },
-          });
-        }
-        entries.splice(entries.indexOf(entry), 1);
+        common.deleteEntry(entry, tranzaction);
 
         if (tranzaction.entries_attributes.filter(e => e.deleted_at == null).length === 0) {
           if (tranzaction.id != undefined) {
@@ -152,8 +128,7 @@ import { createApp } from 'vue'
       },
       setDate(entry) {
         const date = event.currentTarget.value;
-        const splitDate = date.split('-');
-        const sqlDate = `20${splitDate[2]}-${splitDate[0]}-${splitDate[1]}`;
+        const sqlDate = common.formatDate(date);
         this.adjustTranzactions(entry, 'date', sqlDate)
       },
       getCompany(entry) {

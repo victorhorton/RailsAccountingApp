@@ -48,3 +48,17 @@ export function sumTotals(amounts) {
     return parseFloat(a) + parseFloat(b);
   }, 0 );
 }
+
+export function deleteEntry(entry, tranzaction) {
+  const entries = tranzaction.entries_attributes;
+  if (entry.id != undefined) {
+    $.ajax({
+      url: `/entries/${entry.id}`,
+      type: "DELETE",
+      headers: {
+        "X-CSRF-Token":  $('[name=csrf-token]')[0].content,
+      },
+    });
+  }
+  entries.splice(entries.indexOf(entry), 1);
+}
