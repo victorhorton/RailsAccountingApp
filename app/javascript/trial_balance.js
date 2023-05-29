@@ -4,12 +4,12 @@ $(document).ready(function() {
   const trialBalanceDatatable = $('#trial-balance-datatable').DataTable({
     lengthMenu: [500, 1000, 5000, 10000],
     paging: true,
-    "processing": true,
-    "serverSide": true,
+    processing: true,
+    serverSide: true,
     dom: 'ltiprB',
     buttons: 'excel'
-    "ajax": {
-      "url": $('#trial-balance-datatable').data('source')
+    ajax: {
+      url: $('#trial-balance-datatable').data('source')
     },
     footerCallback: function ( tfoot, data, start, end, display ) {
       const tableInfo = trialBalanceDatatable.page.info();
@@ -30,16 +30,16 @@ $(document).ready(function() {
       $(debitColumn.footer()).html(`Debits: ${debit_total}`);
       $(creditColumn.footer()).html(`Credits: ${credit_total}`);
     },
-    "pagingType": "full_numbers",
-    "columns": [
-      {"data": "account_id"},
-      {"data": "purpose"},
-      {"data": "contact"},
-      {"data": "date"},
-      {"data": "reference_number"},
-      {"data": "company"},
-      {"data": "debit"},
-      {"data": "credit"},
+    pagingType: 'full_numbers',
+    columns: [
+      {data: 'account_id'},
+      {data: 'purpose'},
+      {data: 'contact'},
+      {data: 'date'},
+      {data: 'reference_number'},
+      {data: 'company'},
+      {data: 'debit'},
+      {data: 'credit'},
     ]
     // pagingType is optional, if you want full pagination controls.
     // Check dataTables documentation to learn more about
