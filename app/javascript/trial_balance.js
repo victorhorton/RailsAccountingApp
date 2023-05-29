@@ -2,6 +2,8 @@ import * as common from 'common'
 
 $(document).ready(function() {
   const trialBalanceDatatable = $('#trial-balance-datatable').DataTable({
+    lengthMenu: [500, 1000, 5000, 10000],
+    paging: true,
     "processing": true,
     "serverSide": true,
     dom: 'ltiprB',
