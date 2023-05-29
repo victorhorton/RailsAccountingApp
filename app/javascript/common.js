@@ -33,3 +33,18 @@ export function formatDate(date) {
   return `20${splitDate[2]}-${splitDate[0]}-${splitDate[1]}`;
 }
 
+export function sumTotals(amounts) {
+  return amounts.reduce( ( a, b ) => {
+    if (a === '') {
+      a = 0;
+    } else {
+      a = `${a}`.replace(',', '');
+    }
+    if (b === '') {
+      b = 0;
+    } else {
+      b = `${b}`.replace(',', '');
+    }
+    return parseFloat(a) + parseFloat(b);
+  }, 0 );
+}
