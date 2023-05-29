@@ -4,6 +4,8 @@ $(document).ready(function() {
   const trialBalanceDatatable = $('#trial-balance-datatable').DataTable({
     "processing": true,
     "serverSide": true,
+    dom: 'ltiprB',
+    buttons: 'excel'
     "ajax": {
       "url": $('#trial-balance-datatable').data('source')
     },
