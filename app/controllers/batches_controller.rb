@@ -97,6 +97,7 @@ class BatchesController < ApplicationController
       tranzactions_attributes: [
         :id,
         :company_id,
+        :tranzaction_type,
         :date,
         :reference_number,
         :completed_at,

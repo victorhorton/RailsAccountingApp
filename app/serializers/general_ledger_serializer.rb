@@ -3,13 +3,17 @@ class GeneralLedgerSerializer < ActiveModel::Serializer
 
   def tranzactions_attributes
     if object.tranzactions.blank?
-      return [{entries_attributes: [{designation: 'distribution', position: 1}]}]
+      return [{
+        tranzaction_type: 'general',
+        entries_attributes: [{designation: 'distribution', position: 1}]
+      }]
     else
       return object.tranzactions.map{ |tranzaction|
         {
           id: tranzaction.id,
           company_id: tranzaction.company_id,
           date: tranzaction.date,
+          tranzaction_type: 'general',
           entries_attributes: tranzaction.entries.map{ |entry|
             {
               id: entry.id,

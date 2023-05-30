@@ -1,5 +1,17 @@
 class DirectedBatchSerializer < ActiveModel::Serializer
-  attributes :id, :reference_number, :company_id, :contact_id, :date, :entries_attributes, :batch_id, :payments_attributes
+  attributes :id,
+    :reference_number,
+    :company_id,
+    :contact_id,
+    :tranzaction_type,
+    :date,
+    :entries_attributes,
+    :batch_id,
+    :payments_attributes
+
+  def tranzaction_type
+    return object.tranzaction_type || 'general'
+  end
 
   def entries_attributes
 
@@ -53,8 +65,9 @@ class DirectedBatchSerializer < ActiveModel::Serializer
         {
           payment_type: payment_type,
           tranzaction_attributes: {
-          batch_id: object.batch_id,
-          company_id: object.company_id,
+            tranzaction_type: 'payment',
+            batch_id: object.batch_id,
+            company_id: object.company_id,
             entries_attributes: [
               {designation: 'primary', position: 1, account_id: primary_account_id, entry_type: reversed_type},
               {designation: 'distribution', position: 2, entry_type: primary_type}
@@ -74,6 +87,7 @@ class DirectedBatchSerializer < ActiveModel::Serializer
             reference_number: payment.tranzaction.reference_number,
             company_id: payment.tranzaction.company_id,
             date: payment.tranzaction.date,
+            tranzaction_type: payment.payment_type || 'payment',
             entries_attributes: payment.tranzaction.entries.map{|entry|
               {
                 id: entry.id,
