@@ -16,7 +16,7 @@
     <label for="payment-account-id" class="form-input">Account ID</label>
     <input
       id="payment-account-id"
-      class="form-control"
+      class="form-control payment-input"
       type="text"
       :value="getPaymentAccount(payment)"
       @blur="setPaymentAccount(payment)"
@@ -28,7 +28,7 @@
     </label>
     <input
       id="payment-reference-number"
-      class="form-control"
+      class="form-control payment-input"
       type="text"
       v-model="payment.tranzaction_attributes.reference_number"
     >
@@ -37,7 +37,7 @@
     <label for="payment-date" class="form-input">Date</label>
     <input
       id="payment-date"
-      class="form-control"
+      class="form-control payment-input"
       type="text"
       :value="getDate(payment.tranzaction_attributes)"
       @blur="setDate(payment.tranzaction_attributes)"
@@ -47,7 +47,7 @@
     <label for="payment-amount" class="form-input">Amount</label>
     <input
       id="payment-amount"
-      class="form-control"
+      class="form-control payment-input"
       type="text"
       name="amount"
       :value="getPaymentAmount(payment)"
@@ -60,7 +60,7 @@
     <label for="payment-addressee" class="form-input">Addressee</label>
     <input
       id="payment-addressee"
-      class="form-control"
+      class="form-control payment-input"
       type="text"
       v-model="payment.addressee"
     >
@@ -69,7 +69,7 @@
     <label for="payment-memo" class="form-input">Memo</label>
     <input
       id="payment-memo"
-      class="form-control"
+      class="form-control payment-input"
       type="text"
       v-model="payment.memo"
     >

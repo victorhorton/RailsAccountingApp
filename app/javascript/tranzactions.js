@@ -211,6 +211,14 @@ import * as common from 'common'
         }).account_id = paymentAccount;
       },
       submitForm() {
+        const paymentIsEmpty = $('.payment-input').map(function(idx, elem) {
+          return $(elem).val();
+        }).get().every(x => x === '')
+
+        if (paymentIsEmpty) {
+          delete this.tranzaction.payments_attributes
+        }
+
         $('button').prop("disabled",true)
         const isNew = railsParams.action === 'new'
         const url = isNew ? '/tranzactions' : `/tranzactions/${this.tranzaction.id}`;
