@@ -18,6 +18,11 @@ class Tranzaction < ApplicationRecord
 		return obj[:value].map{|t| t.errors.full_messages}.flatten.compact.uniq.join(', ')
 	}
 
+  enum :tranzaction_type, {
+    general: 0,
+    payment: 1,
+  }
+
 	def check_payments
 		payments.select{|payment| payment.payment_type == 'check'}
 	end

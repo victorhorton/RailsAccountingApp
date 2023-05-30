@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_27_205310) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_30_230938) do
   create_table "accounts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.integer "account_type"
@@ -83,6 +83,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_27_205310) do
     t.bigint "batch_id"
     t.bigint "company_id", null: false
     t.bigint "contact_id"
+    t.integer "tranzaction_type"
     t.date "date"
     t.string "reference_number"
     t.datetime "completed_at"
