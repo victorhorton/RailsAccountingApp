@@ -5,7 +5,16 @@ class TranzactionsController < ApplicationController
 
   def index
     index_breadcrumbs
-    @tranzactions = Tranzaction.all
+    @tranzactions = Tranzaction.includes(:batch).where.not(
+        batches: {
+          posted_at: nil,
+        }
+      ).where(
+      batches: {
+        purpose: params[:purpose],
+      },
+      completed_at: nil,
+    )
   end
 
   def new
