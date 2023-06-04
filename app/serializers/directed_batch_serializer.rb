@@ -90,7 +90,7 @@ class DirectedBatchSerializer < ActiveModel::Serializer
             reference_number: payment.tranzaction.reference_number,
             company_id: payment.tranzaction.company_id,
             date: payment.tranzaction.date,
-            tranzaction_type: payment.payment_type || 'payment',
+            tranzaction_type: 'payment',
             entries_attributes: payment.tranzaction.entries.map{|entry|
               {
                 id: entry.id,
