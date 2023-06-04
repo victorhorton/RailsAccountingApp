@@ -3,6 +3,11 @@ class TranzactionsController < ApplicationController
   layout :determine_layout
   before_action :is_editable, only: [:edit, :update]
 
+  def index
+    index_breadcrumbs
+    @tranzactions = Tranzaction.all
+  end
+
   def new
     @batch = Batch.find(params[:batch_id])
     @tranzaction = Tranzaction.new(batch_id: params[:batch_id])
@@ -80,6 +85,11 @@ class TranzactionsController < ApplicationController
   end
 
   private
+
+  def index_breadcrumbs
+    add_breadcrumb "Home", :root_path
+    add_breadcrumb "Tranzactions", :tranzactions_path
+  end
 
   def new_breadcrumbs
     add_breadcrumb "Home", :root_path
