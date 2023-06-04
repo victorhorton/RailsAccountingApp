@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import * as common from 'common'
 
+if ($('#vue-batches').length) {
   createApp({
     name: "batches",
     mounted() {
@@ -35,7 +36,7 @@ import * as common from 'common'
         });
         const matchedTranzaction = tranzactions.find(t => {
           return t[primaryKey] === value && t[secondaryKey] === currentTranzaction[secondaryKey];
-        });        
+        });
 
         if (currentTranzaction[primaryKey] === value) {
           return
@@ -120,7 +121,7 @@ import * as common from 'common'
               headers: {
                 "X-CSRF-Token":  $('[name=csrf-token]')[0].content,
               },
-            });            
+            });
           }
           tranzactions.splice(tranzactions.indexOf(tranzaction), 1);
         }
@@ -181,3 +182,4 @@ import * as common from 'common'
       }
     }
   }).mount('#vue-batches')
+}

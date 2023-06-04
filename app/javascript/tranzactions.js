@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import * as common from 'common'
 
+if ($('#vue-tranzactions').length) {
   createApp({
     name: "tranzactions",
     mounted() {
@@ -304,3 +305,4 @@ import * as common from 'common'
       }
     }
   }).mount('#vue-tranzactions')
+}
