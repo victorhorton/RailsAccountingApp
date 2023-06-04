@@ -18,6 +18,7 @@ class Batch < ApplicationRecord
 		payable: 0,
 		receivable: 1,
 		general_ledger: 2,
+		payment: 3,
 	}
 
 	def self.unposted
