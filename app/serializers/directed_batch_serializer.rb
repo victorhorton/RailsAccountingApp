@@ -65,8 +65,12 @@ class DirectedBatchSerializer < ActiveModel::Serializer
         {
           payment_type: payment_type,
           tranzaction_attributes: {
+            batch_attributes: {
+              invoice_batch_id: object.batch_id,
+              purpose: 'payment',
+              name: "#{batch.name} Payment",
+            },
             tranzaction_type: 'payment',
-            batch_id: object.batch_id,
             company_id: object.company_id,
             entries_attributes: [
               {designation: 'primary', position: 1, account_id: primary_account_id, entry_type: reversed_type},

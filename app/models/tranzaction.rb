@@ -8,6 +8,7 @@ class Tranzaction < ApplicationRecord
 	has_many :entries, dependent: :destroy
 	has_and_belongs_to_many :payments
 
+	accepts_nested_attributes_for :batch
 	accepts_nested_attributes_for :entries
 	accepts_nested_attributes_for :payments
 
