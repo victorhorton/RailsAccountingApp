@@ -46,9 +46,8 @@ class DirectedBatchSerializer < ActiveModel::Serializer
   end
 
   def payments_attributes
-
-    batch_purpose = Batch.find(object.batch_id).purpose
-    if batch_purpose == 'payable'
+    batch = Batch.find(object.batch_id)
+    if batch.purpose == 'payable'
       primary_account_id = 2010
       primary_type = 'credit'
       reversed_type = 'debit'
