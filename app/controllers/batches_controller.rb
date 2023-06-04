@@ -94,6 +94,10 @@ class BatchesController < ApplicationController
 			:purpose,
 			:posted_at,
       :deleted_at,
+      payment_batches_attributes: [
+        :id,
+        :posted_at
+      ],
       tranzactions_attributes: [
         :id,
         :company_id,

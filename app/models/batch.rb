@@ -8,6 +8,7 @@ class Batch < ApplicationRecord
   belongs_to :invoice_batch, class_name: "Batch", optional: true
 
 	accepts_nested_attributes_for :tranzactions
+	accepts_nested_attributes_for :payment_batches
 
 	validates_presence_of :name, :purpose
 	validates_associated :tranzactions, message: lambda { |obj_class, obj|
