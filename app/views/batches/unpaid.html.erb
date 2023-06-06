@@ -1,1 +1,6 @@
-<div id="vue-batches-unpaid"></div>
+<div id="vue-batches-unpaid">
+  <%= render partial: '/payments/form' %>
+  <div v-for="tranzaction in unmarkedTranzactions" class="row">
+    {{ tranzaction }}
+  </div>
+</div>

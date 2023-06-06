@@ -206,17 +206,73 @@ if ($('#vue-batches-unpaid').length) {
         batch: {
           tranzactions_attributes: [
             {
-              payments_attributes: {
-                invoice_ids: [],
-                tranzaction_attributes: {
-                  entries_attributes: [{}]
+              payments_attributes: [
+                {
+                  payment_type: 'check',
+                  invoice_ids: [],
+                  tranzaction_attributes: {
+                    entries_attributes: [
+                      {
+                        designation: 'primary',
+                      },
+                      {
+                        designation: 'distribution'
+                      }
+                    ]
+                  }
                 }
-              },
-              entries_attributes: [{}]
+              ],
+              entries_attributes: [
+                {
+                  designation: 'primary',
+                },
+                {
+                  designation: 'distribution'
+                }
+              ]
             }
           ]
         }
       }
     },
+    methods: {
+      setPaymentAmount(payment) {
+        const entryAmount = parseFloat(event.currentTarget.value.replace(',', ''));
+        const paymentEntries = payment.tranzaction_attributes.entries_attributes;
+        paymentEntries.forEach(entry => {
+          return entry.amount = entryAmount
+        })
+      },
+      setPaymentAccount(payment) {
+        const paymentAccount = event.currentTarget.value;
+        payment.tranzaction_attributes.entries_attributes.find(e => {
+          return e.designation === 'distribution'
+        }).account_id = paymentAccount;
+      },
+      setDate(tranzaction) {
+        const date = event.currentTarget.value;
+        tranzaction.date = common.formatDate(date);
+      },
+      getPaymentAccount(payment) {
+        return payment.tranzaction_attributes.entries_attributes.find(e => {
+          return e.designation === 'distribution'
+        }).account_id
+      },
+      getDate(tranzaction) {
+        return common.parseDate(tranzaction.date);
+      },
+      getPaymentAmount(payment) {
+        const entryAmount = payment.tranzaction_attributes.entries_attributes.find(e => {
+          return e.designation === 'primary'
+        }).amount
+
+        return common.parseAmount(entryAmount);
+      },
+    },
+    computed: {
+      payment() {
+        return this.batch.tranzactions_attributes[0].payments_attributes[0]
+      }
+    }
   }).mount('#vue-batches-unpaid')
 }
