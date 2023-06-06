@@ -207,11 +207,11 @@ if ($('#vue-batches-unpaid').length) {
           tranzactions_attributes: [
             {
               payments_attributes: {
-                invoice_ids: []
+                invoice_ids: [],
                 tranzaction_attributes: {
                   entries_attributes: [{}]
                 }
-              }
+              },
               entries_attributes: [{}]
             }
           ]
