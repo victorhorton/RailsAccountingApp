@@ -183,3 +183,40 @@ if ($('#vue-batches').length) {
     }
   }).mount('#vue-batches')
 }
+
+if ($('#vue-batches-unpaid').length) {
+  createApp({
+    name: "unpaidBatch",
+    mounted() {
+      $.ajax({
+        url: '/batches/unpaid',
+        type: "GET",
+        data: {
+          purpose: 'payable'
+        },
+        dataType: 'json',
+        success: resp => {
+          this.unmarkedTranzactions = resp.tranzactions;
+        },
+      });
+    },
+    data() {
+      return {
+        unmarkedTranzactions: {},
+        batch: {
+          tranzactions_attributes: [
+            {
+              payments_attributes: {
+                invoice_ids: []
+                tranzaction_attributes: {
+                  entries_attributes: [{}]
+                }
+              }
+              entries_attributes: [{}]
+            }
+          ]
+        }
+      }
+    },
+  }).mount('#vue-batches-unpaid')
+}

@@ -3,20 +3,6 @@ class TranzactionsController < ApplicationController
   layout :determine_layout
   before_action :is_editable, only: [:edit, :update]
 
-  def index
-    index_breadcrumbs
-    @tranzactions = Tranzaction.includes(:batch).where.not(
-        batches: {
-          posted_at: nil,
-        }
-      ).where(
-      batches: {
-        purpose: params[:purpose],
-      },
-      completed_at: nil,
-    )
-  end
-
   def new
     @batch = Batch.find(params[:batch_id])
     @tranzaction = Tranzaction.new(batch_id: params[:batch_id])

@@ -43,6 +43,28 @@ class BatchesController < ApplicationController
     end
   end
 
+  def unpaid
+    respond_to do |format|
+      format.html {
+      }
+      format.json {
+        @tranzactions = Tranzaction.includes(:batch).where.not(
+            batches: {
+              posted_at: nil,
+            }
+          ).where(
+          batches: {
+            purpose: params[:purpose],
+          },
+          completed_at: nil,
+        )
+        render json: {
+          tranzactions: @tranzactions
+        }
+      }
+    end
+  end
+
 	private
 
   def success
