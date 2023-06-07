@@ -1,6 +1,14 @@
 <div id="vue-batches-unpaid">
   <%= render partial: '/payments/form' %>
-  <div v-for="tranzaction in unmarkedTranzactions" class="row">
-    {{ tranzaction }}
+  <div v-for="tranzaction in unmarkedTranzactions" class="row py-2">
+    <div class="col">
+      {{ tranzaction.reference_number }}
+    </div>
+    <div class="col">
+      {{ tranzaction.date }}
+    </div>
+    <div class="col-auto">
+      <input type="checkbox" class="form-check-input" @change="toggleTranzaction(tranzaction)">
+    </div>
   </div>
 </div>

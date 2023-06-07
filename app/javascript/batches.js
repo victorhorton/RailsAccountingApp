@@ -202,24 +202,14 @@ if ($('#vue-batches-unpaid').length) {
     },
     data() {
       return {
-        unmarkedTranzactions: {},
+        unmarkedTranzactions: [{}],
         batch: {
           tranzactions_attributes: [
             {
-              payments_attributes: [
+              payment_attributes: [
                 {
                   payment_type: 'check',
                   invoice_ids: [],
-                  tranzaction_attributes: {
-                    entries_attributes: [
-                      {
-                        designation: 'primary',
-                      },
-                      {
-                        designation: 'distribution'
-                      }
-                    ]
-                  }
                 }
               ],
               entries_attributes: [
@@ -236,6 +226,14 @@ if ($('#vue-batches-unpaid').length) {
       }
     },
     methods: {
+      toggleTranzaction(tranzaction) {
+        const invoiceIds = this.batch.tranzactions_attributes[0].payments_attributes[0].invoice_ids;
+        if (event.currentTarget.checked) {
+          invoiceIds.push(tranzaction.id)
+        } else {
+          invoiceIds.splice(invoiceIds.indexOf(tranzaction.id), 1)
+        }
+      },
       setPaymentAmount(payment) {
         const entryAmount = parseFloat(event.currentTarget.value.replace(',', ''));
         const paymentEntries = payment.tranzaction_attributes.entries_attributes;
