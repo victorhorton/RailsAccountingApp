@@ -227,7 +227,7 @@ if ($('#vue-batches-unpaid').length) {
     },
     methods: {
       toggleTranzaction(tranzaction) {
-        const invoiceIds = this.batch.tranzactions_attributes[0].payments_attributes[0].invoice_ids;
+        const invoiceIds = this.batch.tranzactions_attributes[0].payment_attributes.invoice_ids;
         if (event.currentTarget.checked) {
           invoiceIds.push(tranzaction.id)
         } else {
@@ -235,15 +235,16 @@ if ($('#vue-batches-unpaid').length) {
         }
       },
       setPaymentAmount(payment) {
+        debugger
         const entryAmount = parseFloat(event.currentTarget.value.replace(',', ''));
-        const paymentEntries = payment.tranzaction_attributes.entries_attributes;
+        const paymentEntries = this.tranzactionPayment.entries_attributes;
         paymentEntries.forEach(entry => {
           return entry.amount = entryAmount
         })
       },
       setPaymentAccount(payment) {
         const paymentAccount = event.currentTarget.value;
-        payment.tranzaction_attributes.entries_attributes.find(e => {
+        this.tranzactionPayment.entries_attributes.find(e => {
           return e.designation === 'distribution'
         }).account_id = paymentAccount;
       },
@@ -252,7 +253,7 @@ if ($('#vue-batches-unpaid').length) {
         tranzaction.date = common.formatDate(date);
       },
       getPaymentAccount(payment) {
-        return payment.tranzaction_attributes.entries_attributes.find(e => {
+        return this.tranzactionPayment.entries_attributes.find(e => {
           return e.designation === 'distribution'
         }).account_id
       },
@@ -260,7 +261,7 @@ if ($('#vue-batches-unpaid').length) {
         return common.parseDate(tranzaction.date);
       },
       getPaymentAmount(payment) {
-        const entryAmount = payment.tranzaction_attributes.entries_attributes.find(e => {
+        const entryAmount = this.tranzactionPayment.entries_attributes.find(e => {
           return e.designation === 'primary'
         }).amount
 
@@ -268,8 +269,11 @@ if ($('#vue-batches-unpaid').length) {
       },
     },
     computed: {
+      tranzactionPayment() {
+        return this.batch.tranzactions_attributes[0];
+      },
       payment() {
-        return this.batch.tranzactions_attributes[0].payments_attributes[0]
+        return this.batch.tranzactions_attributes[0].payment_attributes
       }
     }
   }).mount('#vue-batches-unpaid')
