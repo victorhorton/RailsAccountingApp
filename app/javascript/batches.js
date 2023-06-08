@@ -206,12 +206,10 @@ if ($('#vue-batches-unpaid').length) {
         batch: {
           tranzactions_attributes: [
             {
-              payment_attributes: [
-                {
-                  payment_type: 'check',
-                  invoice_ids: [],
-                }
-              ],
+              payment_attributes: {
+                payment_type: 'check',
+                invoice_ids: [],
+              },
               entries_attributes: [
                 {
                   designation: 'primary',
@@ -273,7 +271,9 @@ if ($('#vue-batches-unpaid').length) {
         return this.batch.tranzactions_attributes[0];
       },
       payment() {
-        return this.batch.tranzactions_attributes[0].payment_attributes
+        const payment = this.batch.tranzactions_attributes[0].payment_attributes;
+        payment.tranzaction_attributes = this.batch.tranzactions_attributes[0];
+        return payment
       }
     }
   }).mount('#vue-batches-unpaid')
