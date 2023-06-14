@@ -24,6 +24,20 @@ class Tranzaction < ApplicationRecord
     payment: 1,
   }
 
+  def pay_off_amount
+  	invoices_total = document_amount
+  	payments_total = 0
+
+  	payments.each do |payment|
+  		payments_total += payment.tranzaction.document_amount
+  		payment.tranzactions.each do |invoice_tranzaction|
+  			next if self == invoice_tranzaction
+  			invoices_total += invoice_tranzaction.document_amount
+  		end
+  	end
+  	return invoices_total - payments_total
+  end
+
 	def check_payments
 		payments.select{|payment| payment.payment_type == 'check'}
 	end

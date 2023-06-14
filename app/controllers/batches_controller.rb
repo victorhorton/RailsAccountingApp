@@ -59,7 +59,7 @@ class BatchesController < ApplicationController
           completed_at: nil,
         )
         render json: {
-          tranzactions: @tranzactions
+          tranzactions: ActiveModelSerializers::SerializableResource.new(@tranzactions, {each_serializer: UnpaidTranzactionsSerializer}).as_json
         }
       }
     end

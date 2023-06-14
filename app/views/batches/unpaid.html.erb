@@ -6,6 +6,7 @@
         <tr>
           <th>Reference Number</th>
           <th>Date</th>
+          <th>Payoff Amount</th>
           <th></th>
         </tr>
       </thead>
@@ -16,6 +17,9 @@
           </td>
           <td class="col">
             {{ tranzaction.date }}
+          </td>
+          <td class="col">
+            {{ tranzaction.pay_off_amount }}
           </td>
           <td class="col-auto">
             <input type="checkbox" class="form-check-input" @change="toggleTranzaction(tranzaction)">
