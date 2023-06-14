@@ -6,6 +6,7 @@ class BatchesController < ApplicationController
 
 	def create
 		@batch = Batch.new(batch_params)
+    binding.pry
 		if @batch.save
       if @batch.purpose == 'general_ledger'
 			  redirect_to edit_batch_path(@batch)
@@ -137,6 +138,15 @@ class BatchesController < ApplicationController
           :description,
           :position,
           :deleted_at,
+        ],
+        payment_attributes: [
+          :payment_type,
+          :addressee,
+          :memo,
+          invoices_attributes: [
+            :id,
+            :completed_at,
+          ],
         ]
       ]
 		)

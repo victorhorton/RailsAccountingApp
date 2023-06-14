@@ -3,6 +3,7 @@ class Payment < ApplicationRecord
   belongs_to :tranzaction
 
   accepts_nested_attributes_for :tranzaction
+  accepts_nested_attributes_for :invoices
 
   enum :payment_type, {
     check: 0,

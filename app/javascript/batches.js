@@ -207,7 +207,7 @@ if ($('#vue-batches-unpaid').length) {
             {
               payment_attributes: {
                 payment_type: 'check',
-                invoices: [],
+                invoices_attributes: [],
               },
               entries_attributes: [
                 {
@@ -224,11 +224,11 @@ if ($('#vue-batches-unpaid').length) {
     },
     methods: {
       toggleTranzaction(tranzaction) {
-        const invoices = this.batch.tranzactions_attributes[0].payment_attributes.invoices;
+        const invoices_attributes = this.batch.tranzactions_attributes[0].payment_attributes.invoices_attributes;
         if (event.currentTarget.checked) {
-          invoices.push(tranzaction)
+          invoices_attributes.push(tranzaction)
         } else {
-          invoices.splice(invoices.indexOf(tranzaction), 1)
+          invoices_attributes.splice(invoices_attributes.indexOf(tranzaction), 1)
         }
       },
       setPaymentAmount(payment) {

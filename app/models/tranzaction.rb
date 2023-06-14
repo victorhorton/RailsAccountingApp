@@ -11,6 +11,7 @@ class Tranzaction < ApplicationRecord
 	accepts_nested_attributes_for :batch
 	accepts_nested_attributes_for :entries
 	accepts_nested_attributes_for :payments
+	accepts_nested_attributes_for :payment
 
 	validates_presence_of :contact_id, if: :not_gl
 	validates_presence_of :company_id, :date
