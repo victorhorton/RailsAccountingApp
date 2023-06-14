@@ -264,7 +264,6 @@ if ($('#vue-batches-unpaid').length) {
         return common.parseAmount(entryAmount);
       },
       submitForm() {
-        debugger
         $.ajax({
           url: `/batches`,
           type: "POST",
