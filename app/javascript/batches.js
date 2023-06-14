@@ -272,7 +272,9 @@ if ($('#vue-batches-unpaid').length) {
       },
       payment() {
         const payment = this.batch.tranzactions_attributes[0].payment_attributes;
-        payment.tranzaction_attributes = this.batch.tranzactions_attributes[0];
+        const tranzactionsAttributes = {...this.batch.tranzactions_attributes[0]}
+        delete tranzactionsAttributes.payment_attributes;
+        payment.tranzaction_attributes = tranzactionsAttributes;
         return payment
       }
     }
