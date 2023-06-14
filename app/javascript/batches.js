@@ -151,7 +151,6 @@ if ($('#vue-batches').length) {
         }
       },
       submitForm() {
-
         $.ajax({
           url: `/batches/${this.batch.id}`,
           type: "PATCH",
@@ -208,7 +207,7 @@ if ($('#vue-batches-unpaid').length) {
             {
               payment_attributes: {
                 payment_type: 'check',
-                invoice_ids: [],
+                invoices: [],
               },
               entries_attributes: [
                 {
@@ -225,15 +224,14 @@ if ($('#vue-batches-unpaid').length) {
     },
     methods: {
       toggleTranzaction(tranzaction) {
-        const invoiceIds = this.batch.tranzactions_attributes[0].payment_attributes.invoice_ids;
+        const invoices = this.batch.tranzactions_attributes[0].payment_attributes.invoices;
         if (event.currentTarget.checked) {
-          invoiceIds.push(tranzaction.id)
+          invoices.push(tranzaction)
         } else {
-          invoiceIds.splice(invoiceIds.indexOf(tranzaction.id), 1)
+          invoices.splice(invoices.indexOf(tranzaction), 1)
         }
       },
       setPaymentAmount(payment) {
-        debugger
         const entryAmount = parseFloat(event.currentTarget.value.replace(',', ''));
         const paymentEntries = this.tranzactionPayment.entries_attributes;
         paymentEntries.forEach(entry => {
@@ -265,6 +263,26 @@ if ($('#vue-batches-unpaid').length) {
 
         return common.parseAmount(entryAmount);
       },
+      submitForm() {
+        debugger
+        $.ajax({
+          url: `/batches`,
+          type: "POST",
+          dataType: 'json',
+          headers: {
+            "X-CSRF-Token":  $('[name=csrf-token]')[0].content,
+          },
+          data: {
+            batch: this.batch
+          },
+          success: e => {
+            debugger
+          },
+          error: e => {
+            debugger
+          }
+        });
+      }
     },
     computed: {
       tranzactionPayment() {
