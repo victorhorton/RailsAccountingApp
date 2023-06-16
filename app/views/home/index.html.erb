@@ -19,7 +19,7 @@
       </div>
       <ul class="list-group list-group-flush">
         <%= link_to("AP Batches", batches_path(purpose: 'payable'), class: 'list-group-item') %>
-        <%= link_to("Payment Select", tranzactions_path(purpose: 'payable'), class: 'list-group-item') %>
+        <%= link_to("Payment Select", unpaid_batches_path(purpose: 'payable'), class: 'list-group-item') %>
       </ul>
     </div>
   </div>
