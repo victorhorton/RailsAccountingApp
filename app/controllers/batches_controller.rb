@@ -6,15 +6,11 @@ class BatchesController < ApplicationController
 
 	def create
 		@batch = Batch.new(batch_params)
-    binding.pry
+
 		if @batch.save
-      if @batch.purpose == 'general_ledger'
-			  redirect_to edit_batch_path(@batch)
-      else
-        redirect_to new_tranzaction_path(batch_id: @batch.id)
-      end
+      success
 		else
-			redirect_to batches_path
+			error
 		end
 	end
 
@@ -69,10 +65,18 @@ class BatchesController < ApplicationController
 	private
 
   def success
-    flash.notice = "Saved"
     respond_to do |format|
       format.html {
-        redirect_to batches_path(purpose: @batch.purpose)
+        if params[:action] == 'create'
+          if @batch.purpose == 'general_ledger'
+            redirect_to edit_batch_path(@batch)
+          else
+            redirect_to new_tranzaction_path(batch_id: @batch.id)
+          end
+        else
+          flash.notice = "#{@batch.name} Saved"
+          redirect_to batches_path(purpose: @batch.purpose)
+        end
       }
       format.json {
         render json: {
