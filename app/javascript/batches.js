@@ -287,10 +287,10 @@ if ($('#vue-batches-unpaid').length) {
             batch: this.batch
           },
           success: e => {
-            debugger
+            window.location = '/'
           },
           error: e => {
-            debugger
+            location.reload();
           }
         });
       },
