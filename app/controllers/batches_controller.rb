@@ -121,7 +121,7 @@ class BatchesController < ApplicationController
 			:purpose,
 			:posted_at,
       :deleted_at,
-      payment_batches_attributes: [
+      payments_batches_attributes: [
         :id,
         :posted_at
       ],

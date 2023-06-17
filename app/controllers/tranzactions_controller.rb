@@ -181,9 +181,9 @@ class TranzactionsController < ApplicationController
           :completed_at,
           :deleted_at,
           batch_attributes: [
-            :invoice_batch_id,
             :purpose,
             :name,
+            invoice_batch_ids: [],
           ],
           entries_attributes: [
             :id,

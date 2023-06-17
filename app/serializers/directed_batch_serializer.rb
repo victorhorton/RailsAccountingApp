@@ -65,7 +65,7 @@ class DirectedBatchSerializer < ActiveModel::Serializer
           payment_type: payment_type,
           tranzaction_attributes: {
             batch_attributes: {
-              invoice_batch_id: object.batch_id,
+              invoice_batch_ids: [object.batch_id],
               purpose: 'payment',
               name: "#{batch.name} Payment",
             },

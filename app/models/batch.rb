@@ -2,10 +2,18 @@ class Batch < ApplicationRecord
 	acts_as_paranoid
 
 	has_many :entries, through: :tranzactions
-  has_many :payment_batches, class_name: "Batch", foreign_key: "invoice_batch_id"
 	has_many :tranzactions, dependent: :destroy
 
-  belongs_to :invoice_batch, class_name: "Batch", optional: true
+	has_and_belongs_to_many :payment_batches,
+		join_table: :invoices_payments_batch,
+		class_name: 'Batch',
+		 foreign_key: 'invoice_batch_id',
+     association_foreign_key: 'payment_batch_id'
+	has_and_belongs_to_many :invoice_batch,
+		join_table: :invoices_payments_batch,
+		class_name: 'Batch',
+		foreign_key: 'payment_batch_id',
+    association_foreign_key: 'invoice_batch_id'
 
 	accepts_nested_attributes_for :tranzactions
 	accepts_nested_attributes_for :payment_batches
