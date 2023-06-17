@@ -67,6 +67,13 @@ if ($('#vue-tranzactions').length) {
           position: nextPosition
         })
       },
+      setNumber(tranzaction) {
+        const reference_number = event.currentTarget.value;
+        tranzaction.reference_number = reference_number;
+      },
+      paymentTranzaction(payment) {
+        return payment.tranzaction_attributes;
+      },
       deleteEntry(entry) {
         common.deleteEntry(entry, this.tranzaction)
       },

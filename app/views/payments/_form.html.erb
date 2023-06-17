@@ -30,7 +30,8 @@
       id="payment-reference-number"
       class="form-control payment-input"
       type="text"
-      v-model="payment.tranzaction_attributes.reference_number"
+      :value="(paymentTranzaction(payment)).reference_number"
+      @blur="setNumber(paymentTranzaction(payment))"
     >
   </div>
   <div class="col">
@@ -39,8 +40,8 @@
       id="payment-date"
       class="form-control payment-input"
       type="text"
-      :value="getDate(payment.tranzaction_attributes)"
-      @blur="setDate(payment.tranzaction_attributes)"
+      :value="getDate(paymentTranzaction(payment))"
+      @blur="setDate(paymentTranzaction(payment))"
     >
   </div>
   <div class="col">

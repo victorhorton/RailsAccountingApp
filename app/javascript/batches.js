@@ -252,6 +252,10 @@ if ($('#vue-batches-unpaid').length) {
           return e.designation === 'distribution'
         }).account_id = paymentAccount;
       },
+      setNumber(tranzaction) {
+        const reference_number = event.currentTarget.value;
+        tranzaction.reference_number = reference_number;
+      },
       setDate(tranzaction) {
         const date = event.currentTarget.value;
         tranzaction.date = common.formatDate(date);
@@ -289,18 +293,19 @@ if ($('#vue-batches-unpaid').length) {
             debugger
           }
         });
-      }
+      },
+      paymentTranzaction(payment) {
+        return this.batch.tranzactions_attributes.find(tranzaction => {
+          return tranzaction.payment_attributes == payment;
+        })
+      },
     },
     computed: {
       tranzactionPayment() {
         return this.batch.tranzactions_attributes[0];
       },
       payment() {
-        const payment = this.batch.tranzactions_attributes[0].payment_attributes;
-        const tranzactionsAttributes = {...this.batch.tranzactions_attributes[0]}
-        delete tranzactionsAttributes.payment_attributes;
-        payment.tranzaction_attributes = tranzactionsAttributes;
-        return payment
+        return this.batch.tranzactions_attributes[0].payment_attributes;
       }
     }
   }).mount('#vue-batches-unpaid')
