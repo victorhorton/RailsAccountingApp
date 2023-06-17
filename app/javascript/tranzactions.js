@@ -15,8 +15,18 @@ if ($('#vue-tranzactions').length) {
         type: "GET",
         dataType: 'json',
         success: resp => {
-          this.batch = resp.batch;
-          this.tranzaction = resp.tranzaction;
+
+          if (railsParams.id == localStorage.getItem('id')) {
+            this.batch = JSON.parse(localStorage.getItem('batch'));
+            this.tranzaction = JSON.parse(localStorage.getItem('tranzaction'));
+          } else {
+            this.batch = resp.batch;
+            this.tranzaction = resp.tranzaction;
+            localStorage.setItem('batch', JSON.stringify(resp.batch));
+            localStorage.setItem('tranzaction', JSON.stringify(resp.tranzaction));
+            localStorage.setItem('id', railsParams.id);
+          }
+
           this.companies = resp.companies;
           this.contacts = resp.contacts;
         },
@@ -56,7 +66,13 @@ if ($('#vue-tranzactions').length) {
     watch: {
       invoiceCompleted(newValue, oldValue) {
         this.tranzaction.completed_at = newValue;
-      }
+      },
+      tranzaction: {
+        handler: function (val, oldVal) {
+          localStorage.setItem('tranzaction', JSON.stringify(val));
+        },
+        deep: true
+      },
     },
     methods: {
       addEntry() {
