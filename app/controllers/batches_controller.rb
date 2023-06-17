@@ -124,6 +124,7 @@ class BatchesController < ApplicationController
       tranzactions_attributes: [
         :id,
         :company_id,
+        :contact_id,
         :tranzaction_type,
         :date,
         :reference_number,
@@ -143,10 +144,7 @@ class BatchesController < ApplicationController
           :payment_type,
           :addressee,
           :memo,
-          invoices_attributes: [
-            :id,
-            :completed_at,
-          ],
+          invoice_ids: []
         ]
       ]
 		)
