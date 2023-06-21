@@ -43,6 +43,7 @@ class BatchesController < ApplicationController
   def unpaid
     respond_to do |format|
       format.html {
+        unpaid_breadcrumbs
       }
       format.json {
         @tranzactions = Tranzaction.includes(:batch).where.not(
@@ -111,6 +112,15 @@ class BatchesController < ApplicationController
     add_breadcrumb "Home", :root_path
     add_breadcrumb "#{@batch.purpose.titleize} Batches", batches_path(purpose: @batch.purpose)
     add_breadcrumb "Edit", edit_batch_path(params[:id])
+  end
+
+  def unpaid_breadcrumbs
+    add_breadcrumb "Home", :root_path
+    if params[:purpose] == 'payable'
+      add_breadcrumb 'Payment Select', unpaid_batches_path(purpose: 'payable')
+    else
+      add_breadcrumb 'Receipts', unpaid_batches_path(purpose: 'receivable')
+    end
   end
 
 	def batch_params
