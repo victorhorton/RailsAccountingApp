@@ -4,7 +4,6 @@ class TranzactionsController < ApplicationController
   before_action :is_editable, only: [:edit, :update]
 
   def new
-    @batch = Batch.find(params[:batch_id])
     @tranzaction = Tranzaction.new(batch_id: params[:batch_id])
 
     respond_to do |format|
@@ -15,7 +14,6 @@ class TranzactionsController < ApplicationController
         @companies = Company.all
         @contacts = Contact.all
         render json: {
-          batch: @batch,
           tranzaction: ActiveModelSerializers::SerializableResource.new(@tranzaction, {serializer: DirectedBatchSerializer}).as_json,
           companies: @companies,
           contacts: @contacts

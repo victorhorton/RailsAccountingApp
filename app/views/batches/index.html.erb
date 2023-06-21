@@ -1,16 +1,10 @@
 <div class="row my-3">
   <div class="col-auto">
-  	<%= form_with model: Batch.new do |form| %>
-      <%= form.hidden_field(
-        :name,
-        value: "#{params[:purpose].titleize} - #{Date.current}"
-      ) %>
-  		<%= form.hidden_field(
-  			:purpose,
-  			value: params[:purpose]
-  		) %>
-  		<%= form.submit('New Batch', class: 'btn btn-primary') %> 
-  	<% end %>
+    <%= link_to(
+      'New Batch',
+      params[:purpose] == 'general_ledger' ? new_batch_path(purpose: params[:purpose]) : new_tranzaction_path(purpose: params[:purpose]),
+      class: 'btn btn-primary'
+    ) %>
   </div>
 </div>
 <div class="col my-3">
