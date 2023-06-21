@@ -30,7 +30,7 @@
       </div>
       <ul class="list-group list-group-flush">
         <%= link_to("AR Batches", batches_path(purpose: 'receivable'), class: 'list-group-item') %>
-        <%= link_to("Receipts", tranzactions_path(purpose: 'receivable'), class: 'list-group-item') %>
+        <%= link_to("Receipts", unpaid_batches_path(purpose: 'receivable'), class: 'list-group-item') %>
       </ul>
     </div>
   </div>
