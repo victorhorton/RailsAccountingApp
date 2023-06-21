@@ -207,7 +207,7 @@ if ($('#vue-batches-unpaid').length) {
         url: '/batches/unpaid',
         type: "GET",
         data: {
-          purpose: 'payable'
+          purpose: railsParams.purpose
         },
         dataType: 'json',
         success: resp => {
@@ -227,7 +227,7 @@ if ($('#vue-batches-unpaid').length) {
               company_id: 1,
               contact_id: 1,
               payment_attributes: {
-                payment_type: 'check',
+                payment_type: railsParams.purpose === 'payable' ? 'check' : 'receipt',
                 invoice_ids: [],
               },
               entries_attributes: [
