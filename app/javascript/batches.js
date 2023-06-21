@@ -10,7 +10,15 @@ if ($('#vue-batches').length) {
         type: "GET",
         dataType: 'json',
         success: resp => {
-          this.batch = resp.batch
+
+          if (railsParams.id == localStorage.getItem('id')) {
+            this.batch = JSON.parse(localStorage.getItem('batch'));
+          } else {
+            this.batch = resp.batch;
+            localStorage.setItem('batch', JSON.stringify(resp.batch));
+            localStorage.setItem('id', railsParams.id);
+          }
+
           this.companies = resp.companies
         },
       });
@@ -26,6 +34,14 @@ if ($('#vue-batches').length) {
         },
         companies: [{}]
       }
+    },
+    watch: {
+      batch: {
+        handler: function (val, oldVal) {
+          localStorage.setItem('batch', JSON.stringify(val));
+        },
+        deep: true
+      },
     },
     methods: {
       adjustTranzactions(entry, primaryKey, value) {
