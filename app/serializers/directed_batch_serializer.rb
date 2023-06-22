@@ -7,7 +7,17 @@ class DirectedBatchSerializer < ActiveModel::Serializer
     :date,
     :entries_attributes,
     :batch_id,
-    :payments_attributes
+    :payments_attributes,
+    :batch_attributes,
+
+    def batch_attributes
+      return {
+        name: object.batch.name,
+        comment: object.batch.comment,
+        purpose: object.batch.purpose,
+
+      }
+    end
 
   def tranzaction_type
     return object.tranzaction_type || 'general'
@@ -15,7 +25,7 @@ class DirectedBatchSerializer < ActiveModel::Serializer
 
   def entries_attributes
 
-    batch_purpose = Batch.find(object.batch_id).purpose
+    batch_purpose = object.batch.purpose
     if batch_purpose == 'payable'
       primary_account_id = 2010
       primary_type = 'credit'
@@ -46,7 +56,7 @@ class DirectedBatchSerializer < ActiveModel::Serializer
   end
 
   def payments_attributes
-    batch = Batch.find(object.batch_id)
+    batch = object.batch
     if batch.purpose == 'payable'
       primary_account_id = 2010
       primary_type = 'credit'

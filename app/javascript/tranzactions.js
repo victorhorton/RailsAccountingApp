@@ -13,14 +13,18 @@ if ($('#vue-tranzactions').length) {
       $.ajax({
         url,
         type: "GET",
+        data: {
+          batch_id: railsParams.batch_id === undefined ? null : railsParams.batch_id,
+          purpose: railsParams.purpose
+        },
         dataType: 'json',
         success: resp => {
 
           if (railsParams.id == localStorage.getItem('id')) {
-            this.batch = JSON.parse(localStorage.getItem('batch'));
+            this.tranzaction.batch_attributes = JSON.parse(localStorage.getItem('batch'));
             this.tranzaction = JSON.parse(localStorage.getItem('tranzaction'));
           } else {
-            this.batch = resp.batch;
+            this.tranzaction.batch_attributes = resp.batch;
             this.tranzaction = resp.tranzaction;
             localStorage.setItem('batch', JSON.stringify(resp.batch));
             localStorage.setItem('tranzaction', JSON.stringify(resp.tranzaction));
@@ -34,8 +38,9 @@ if ($('#vue-tranzactions').length) {
     },
     data() {
       return {
-        batch: {},
         tranzaction: {
+          batch_attributes: {
+          },
           entries_attributes: [
             {
               designation: 'primary',
@@ -94,7 +99,7 @@ if ($('#vue-tranzactions').length) {
         common.deleteEntry(entry, this.tranzaction)
       },
       getAmount(entry) {
-        const batchisPayable = this.batch.purpose === 'payable';
+        const batchisPayable = this.tranzaction.batch_attributes.purpose === 'payable';
         const entryIsDebit = entry.entry_type == 'debit';
         const isPrimaryEntry = entry.designation == 'primary';
         let entryAmount = entry.amount;
@@ -113,7 +118,7 @@ if ($('#vue-tranzactions').length) {
       setAmount(entry) {
         let entryType = undefined;
         let entryAmount = parseFloat(event.currentTarget.value.replace(',', ''));
-        const batchPurpose = this.batch.purpose;
+        const batchPurpose = this.tranzaction.batch_attributes.purpose;
         const batchIsPayable = batchPurpose == 'payable';
         const entryIsNegative = entryAmount < 0;
         const isPrimaryEntry = entry.designation == 'primary';
@@ -258,7 +263,7 @@ if ($('#vue-tranzactions').length) {
             tranzaction: this.tranzaction
           },
           success:  e => {
-            window.location = `/batches?purpose=${this.batch.purpose}`
+            window.location = `/batches?purpose=${this.tranzaction.batch_attributes.purpose}`
           },
           error:  e => {
             location.reload()
