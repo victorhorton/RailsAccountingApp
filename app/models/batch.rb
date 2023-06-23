@@ -1,6 +1,8 @@
 class Batch < ApplicationRecord
 	acts_as_paranoid
 
+	after_save :post_payment, if: [:posting?, :is_directed_batch?]
+
 	has_many :entries, through: :tranzactions
 	has_many :tranzactions, dependent: :destroy
 
@@ -38,6 +40,22 @@ class Batch < ApplicationRecord
 		tranzactions.select{|tranzaction|
 			tranzaction.payment.nil?
 		}
+	end
+
+	def is_directed_batch?
+		purpose == 'payable' || purpose == 'receivable'
+	end
+
+	def post_payment
+		payment_batches.each do |payment_batch|
+			payment_batch.update(posted_at: self.posted_at)
+		end
+	end
+
+	def posting?
+		saved_changes[:posted_at].present? &&
+		saved_changes[:posted_at][0] == nil &&
+		saved_changes[:posted_at][1] != nil
 	end
 
 	def posted?
