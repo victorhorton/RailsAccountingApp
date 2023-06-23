@@ -272,6 +272,9 @@ if ($('#vue-tranzactions').length) {
       }
     },
     computed: {
+      batch() {
+        return this.tranzaction.batch_attributes;
+      },
       checksPrintable() {
         return !this.payments.map(payment => payment.payment_type).includes('check')
       },

@@ -1,5 +1,7 @@
 <div id="vue-tranzactions" class="container-fluid">
   <%= form_with model: @tranzaction do |form| %>
+    <%= render partial: '/batches/form' %>
+    <hr>
     <div class="row">
       <%= render partial: 'form' %>
     </div>
