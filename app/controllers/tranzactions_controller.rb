@@ -4,11 +4,15 @@ class TranzactionsController < ApplicationController
   before_action :is_editable, only: [:edit, :update]
 
   def new
+
+    if Batch.exists?(params[:batch_id])
+      @batch = Batch.find(params[:batch_id])
+    else
+      @batch = Batch.new(purpose: params[:purpose])
+    end
+
     @tranzaction = Tranzaction.new(
-      batch: Batch.find_or_initialize_by(
-        id: params[:batch_id],
-        purpose: params[:purpose]
-      )
+      batch: @batch
     )
 
     respond_to do |format|
@@ -91,7 +95,7 @@ class TranzactionsController < ApplicationController
 
   def new_breadcrumbs
     add_breadcrumb "Home", :root_path
-    add_breadcrumb "#{params[:purpose].titleize} Batches", batches_path(purpose: params[:purpose])
+    add_breadcrumb "#{@batch.purpose.titleize} Batches", batches_path(purpose: @batch.purpose)
     add_breadcrumb "New", new_tranzaction_path
   end
 
