@@ -138,7 +138,7 @@ class BatchesController < ApplicationController
   def new_breadcrumbs
     add_breadcrumb "Home", :root_path
     add_breadcrumb "#{@batch.purpose.titleize} Batches", batches_path(purpose: @batch.purpose)
-    add_breadcrumb "New", new_batch_path(purpose: @batch.purpose)
+    add_breadcrumb "New", new_batch_path(purpose: @batch.purpose, id: params[:id])
   end
 
   def edit_breadcrumbs

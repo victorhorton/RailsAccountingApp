@@ -21,12 +21,9 @@ if ($('#vue-tranzactions').length) {
         success: resp => {
 
           if (railsParams.id == localStorage.getItem('id')) {
-            this.tranzaction.batch_attributes = JSON.parse(localStorage.getItem('batch'));
             this.tranzaction = JSON.parse(localStorage.getItem('tranzaction'));
           } else {
-            this.tranzaction.batch_attributes = resp.batch;
             this.tranzaction = resp.tranzaction;
-            localStorage.setItem('batch', JSON.stringify(resp.batch));
             localStorage.setItem('tranzaction', JSON.stringify(resp.tranzaction));
             localStorage.setItem('id', railsParams.id);
           }
