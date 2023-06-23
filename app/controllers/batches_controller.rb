@@ -2,6 +2,17 @@ class BatchesController < ApplicationController
 	def index
     index_breadcrumbs
 		@batches = Batch.eager_load(tranzactions: :entries).where(purpose: params[:purpose]).unposted
+    if params[:purpose] == 'general_ledger'
+      @new_batch_link = new_batch_path(
+        purpose: params[:purpose],
+        id: DateTime.now.to_i
+      )
+    else
+      @new_batch_link = new_tranzaction_path(
+        purpose: params[:purpose],
+        id: DateTime.now.to_i
+      )
+    end
 	end
 
   def new

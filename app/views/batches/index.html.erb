@@ -2,7 +2,7 @@
   <div class="col-auto">
     <%= link_to(
       'New Batch',
-      params[:purpose] == 'general_ledger' ? new_batch_path(purpose: params[:purpose]) : new_tranzaction_path(purpose: params[:purpose]),
+      @new_batch_link,
       class: 'btn btn-primary'
     ) %>
   </div>
