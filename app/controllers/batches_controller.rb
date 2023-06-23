@@ -4,6 +4,22 @@ class BatchesController < ApplicationController
 		@batches = Batch.eager_load(tranzactions: :entries).where(purpose: params[:purpose]).unposted
 	end
 
+  def new
+    @batch = Batch.new(purpose: params[:purpose])
+    respond_to do |format|
+      format.html  {
+        new_breadcrumbs
+      }
+      format.json  {
+        @companies = Company.all
+        render json: {
+          batch: ActiveModelSerializers::SerializableResource.new(@batch, {serializer: GeneralLedgerSerializer}).as_json,
+          companies: @companies
+        }
+      }
+    end
+  end
+
 	def create
 		@batch = Batch.new(batch_params)
 
@@ -106,6 +122,12 @@ class BatchesController < ApplicationController
   def index_breadcrumbs
     add_breadcrumb "Home", :root_path
     add_breadcrumb "#{params[:purpose].titleize} Batches", batches_path(purpose: params[:purpose])
+  end
+
+  def new_breadcrumbs
+    add_breadcrumb "Home", :root_path
+    add_breadcrumb "#{@batch.purpose.titleize} Batches", batches_path(purpose: @batch.purpose)
+    add_breadcrumb "New", new_batch_path(purpose: @batch.purpose)
   end
 
   def edit_breadcrumbs

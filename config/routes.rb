@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   root "home#index"
-  resources :batches, except: :new do
+  resources :batches do
     collection do
       get :unpaid
     end

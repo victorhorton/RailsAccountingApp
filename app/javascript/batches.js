@@ -5,8 +5,16 @@ if ($('#vue-batches').length) {
   createApp({
     name: "batches",
     mounted() {
+      let url = '/batches/';
+
+      if (railsParams.action === 'new') {
+        url += 'new';
+      } else {
+        url += `${railsParams.id}/edit`
+      }
+
       $.ajax({
-        url: `/batches/${railsParams.id}/edit`,
+        url,
         type: "GET",
         dataType: 'json',
         success: resp => {
