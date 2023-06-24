@@ -44,14 +44,6 @@
                 :posted_at,
                 value: DateTime.now
               ) %>
-              <% batch.payment_batches.each do |payment_batch| %>
-                <%= form.fields_for(:payment_batches, payment_batch) do |payment_batch_form| %>
-                  <%= payment_batch_form.hidden_field(
-                    :posted_at,
-                    value: DateTime.now
-                  ) %>
-                <% end %>
-              <% end %>
               <%= form.submit("Post", class: 'btn btn-primary') %>
             <% end %>
           </div>

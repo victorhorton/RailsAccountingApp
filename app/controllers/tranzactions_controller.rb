@@ -195,7 +195,6 @@ class TranzactionsController < ApplicationController
           batch_attributes: [
             :purpose,
             :name,
-            invoice_batch_ids: [],
           ],
           entries_attributes: [
             :id,

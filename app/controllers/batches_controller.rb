@@ -42,7 +42,7 @@ class BatchesController < ApplicationController
 	end
 
   def update
-    @batch = Batch.find(params[:id])
+    @batch = Batch.eager_load(tranzactions: [:entries, :payments]).find(params[:id])
 
     if @batch.update(batch_params)
       success

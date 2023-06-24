@@ -6,19 +6,7 @@ class Batch < ApplicationRecord
 	has_many :entries, through: :tranzactions
 	has_many :tranzactions, dependent: :destroy
 
-	has_and_belongs_to_many :payment_batches,
-		join_table: :invoices_payments_batch,
-		class_name: 'Batch',
-		 foreign_key: :invoice_batch_id,
-     association_foreign_key: :payment_batch_id
-	has_and_belongs_to_many :invoice_batch,
-		join_table: :invoices_payments_batch,
-		class_name: 'Batch',
-		foreign_key: :payment_batch_id,
-    association_foreign_key: :invoice_batch_id
-
 	accepts_nested_attributes_for :tranzactions
-	accepts_nested_attributes_for :payment_batches
 
 	validates_presence_of :name, :purpose
 	validates_associated :tranzactions, message: lambda { |obj_class, obj|
@@ -47,8 +35,10 @@ class Batch < ApplicationRecord
 	end
 
 	def post_payment
-		payment_batches.each do |payment_batch|
-			payment_batch.update(posted_at: self.posted_at)
+		tranzactions.each do |tranzaction|
+			tranzaction.payments.each do |payment|
+				payment.tranzaction.batch.update(posted_at: self.posted_at)
+			end
 		end
 	end
 
