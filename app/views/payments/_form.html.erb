@@ -3,7 +3,7 @@
     <label for="payment_type" class="form-input">Payment Type</label>
     <%= select_tag(
       :payment_type,
-      options_for_select(Payment.payment_types.map{|type, id| [type.titleize, type]}),
+      options_for_select(Payment.allowed_types(params[:purpose])),
       {
         class: 'form-select',
         'v-model': 'payment.payment_type'

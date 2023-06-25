@@ -12,5 +12,12 @@ class Payment < ApplicationRecord
     receipt: 3,
   }
 
+  def self.allowed_types(purpose)
+    if purpose == 'payable'
+      [['Check', 'check'], ['Wire', 'wire'], ['Credit Card', 'credit_card']]
+    else
+      [['Receipt', 'receipt']]
+    end
+  end
 
 end
