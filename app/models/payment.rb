@@ -17,9 +17,9 @@ class Payment < ApplicationRecord
 
   def self.allowed_types(purpose)
     if purpose == 'payable'
-      [['Check', 'check'], ['Wire', 'wire'], ['Credit Card', 'credit_card']]
+      ['check', 'wire', 'credit_card']
     else
-      [['Receipt', 'receipt']]
+      ['receipt']
     end
   end
 

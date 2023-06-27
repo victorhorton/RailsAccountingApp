@@ -1,21 +1,18 @@
 <div v-if="payment.payment_type !== 'receipt'" class="row py-2">
   <div class="col-auto">
-    <label for="payment_type" class="form-input">Payment Type</label>
-    <%= select_tag(
-      :payment_type,
-      options_for_select(Payment.allowed_types(params[:purpose])),
-      {
-        class: 'form-select',
-        'v-model': 'payment.payment_type'
-      }
-    ) %>
+    <label :for="`payment-${idx}-type`" class="form-input">Payment Type</label>
+    <select class="form-select" v-model="payment.payment_type" :id="`payment-${idx}-type`">
+      <% Payment.allowed_types(params[:purpose]).each do |type| %>
+        <option value="<%= type %>"><%= type.titleize %></option>
+      <% end %>
+    </select>
   </div>
 </div>
 <div class="row py-2">
   <div class="col">
-    <label for="payment-account-id" class="form-input">Account ID</label>
+    <label :for="`payment-${idx}-account-id`" class="form-input">Account ID</label>
     <input
-      id="payment-account-id"
+      :id="`payment-${idx}-account-id`"
       class="form-control payment-input"
       type="text"
       :value="getPaymentAccount(payment)"
@@ -23,11 +20,11 @@
     >
   </div>
   <div class="col">
-    <label for="payment-reference-number" class="form-input">
+    <label :for="`payment-${idx}-reference-number`" class="form-input">
       {{ payment.payment_type === 'receipt' ? 'Receipt' : 'Payment' }} Number
     </label>
     <input
-      id="payment-reference-number"
+      :id="`payment-${idx}-reference-number`"
       class="form-control payment-input"
       type="text"
       :value="(paymentTranzaction(payment)).reference_number"
@@ -35,9 +32,9 @@
     >
   </div>
   <div class="col">
-    <label for="payment-date" class="form-input">Date</label>
+    <label :for="`payment-${idx}-date`" class="form-input">Date</label>
     <input
-      id="payment-date"
+      :id="`payment-${idx}-date`"
       class="form-control payment-input"
       type="text"
       :value="getDate(paymentTranzaction(payment))"
@@ -45,9 +42,9 @@
     >
   </div>
   <div class="col">
-    <label for="payment-amount" class="form-input">Amount</label>
+    <label :for="`payment-${idx}-amount`" class="form-input">Amount</label>
     <input
-      id="payment-amount"
+      :id="`payment-${idx}-amount`"
       class="form-control payment-input"
       type="text"
       name="amount"
@@ -58,18 +55,18 @@
 </div>
 <div v-if="payment.payment_type === 'check'" class="row py-2">
   <div class="col">
-    <label for="payment-addressee" class="form-input">Addressee</label>
+    <label :for="`payment-${idx}-addressee`" class="form-input">Addressee</label>
     <input
-      id="payment-addressee"
+      :id="`payment-${idx}-addressee`"
       class="form-control payment-input"
       type="text"
       v-model="payment.addressee"
     >
   </div>
   <div class="col">
-    <label for="payment-memo" class="form-input">Memo</label>
+    <label :for="`payment-${idx}-memo`" class="form-input">Memo</label>
     <input
-      id="payment-memo"
+      :id="`payment-${idx}-memo`"
       class="form-control payment-input"
       type="text"
       v-model="payment.memo"
