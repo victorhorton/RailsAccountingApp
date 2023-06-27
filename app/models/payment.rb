@@ -1,4 +1,7 @@
 class Payment < ApplicationRecord
+
+  after_save :check_if_completed
+
   has_and_belongs_to_many :invoices, class_name: "Tranzaction"
   belongs_to :tranzaction
 
@@ -20,4 +23,15 @@ class Payment < ApplicationRecord
     end
   end
 
+  def check_if_completed
+    if invoices.all?{|invoice| invoice.pay_off_amount == 0}
+      completed_at = DateTime.now
+    else
+      completed_at = nil
+    end
+
+    invoices.each do |invoice|
+      invoice.update(completed_at: completed_at)
+    end
+  end
 end
