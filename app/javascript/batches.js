@@ -224,43 +224,74 @@ if ($('#vue-batches-unpaid').length) {
       });
     },
     data() {
+      let primaryEntryType = 'debit';
+      let secondaryEntryType = 'credit';
+      let primaryAccount = 2010;
+
+      if (railsParams.purpose === 'receivable') {
+        primaryEntryType = 'credit';
+        secondaryEntryType = 'debit';
+        primaryAccount = 1200;
+      }
+
       return {
+        primaryEntryType,
+        secondaryEntryType,
+        primaryAccount,
+        section: 'select',
         unmarkedTranzactions: [{}],
         batch: {
           name: 'Payment Batch',
           purpose: 'payment',
+          posted_at: new Date().toISOString().slice(0, 19).replace('T', ' '),
           tranzactions_attributes: [
-            {
-              tranzaction_type: 'payment',
-              company_id: 1,
-              contact_id: 1,
-              payment_attributes: {
-                payment_type: railsParams.purpose === 'payable' ? 'check' : 'receipt',
-                invoice_ids: [],
-              },
-              entries_attributes: [
-                {
-                  designation: 'primary',
-                  entry_type: 'debit',
-                  account_id: 2010,
-                },
-                {
-                  designation: 'distribution',
-                  entry_type: 'credit'
-                }
-              ]
-            }
           ]
         }
       }
     },
     methods: {
-      toggleTranzaction(tranzaction) {
-        const invoice_ids = this.batch.tranzactions_attributes[0].payment_attributes.invoice_ids;
-        if (event.currentTarget.checked) {
-          invoice_ids.push(tranzaction.id)
+      toggleTranzaction(invoiceTranzaction) {
+        let paymentTranzaction = this.batch.tranzactions_attributes.find(paymentTranzaction => {
+          return (
+            paymentTranzaction.company_id === invoiceTranzaction.company_id &&
+            paymentTranzaction.contact_id === invoiceTranzaction.contact_id
+          )
+        })
+
+        if (paymentTranzaction === undefined) {
+          this.batch.tranzactions_attributes.push({
+            tranzaction_type: 'payment',
+            company_id: invoiceTranzaction.company_id,
+            contact_id: invoiceTranzaction.contact_id,
+            payment_attributes: {
+              payment_type: 'check',
+              invoice_ids: [invoiceTranzaction.id]
+            },
+            entries_attributes: [
+              {
+                designation: 'primary',
+                entry_type: this.primaryEntryType,
+                account_id: this.primaryAccount,
+              },
+              {
+                designation: 'distribution',
+                entry_type: this.secondaryEntryType,
+              }
+            ]
+          })
         } else {
-          invoice_ids.splice(invoice_ids.indexOf(tranzaction.id), 1)
+          const invoice_ids = paymentTranzaction.payment_attributes.invoice_ids;
+          if (event.currentTarget.checked) {
+            invoice_ids.push(invoiceTranzaction.id)
+          } else {
+            invoice_ids.splice(invoice_ids.indexOf(invoiceTranzaction.id), 1)
+
+            if (invoice_ids.length === 0) {
+              this.batch.tranzactions_attributes.splice(this.batch.tranzactions_attributes.indexOf(paymentTranzaction), 1)
+            }
+
+          }
+
         }
       },
       setPaymentAmount(payment) {

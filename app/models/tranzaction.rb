@@ -31,9 +31,9 @@ class Tranzaction < ApplicationRecord
 
   	payments.each do |payment|
   		payments_total += payment.tranzaction.document_amount
-  		payment.tranzactions.each do |invoice_tranzaction|
-  			next if self == invoice_tranzaction
-  			invoices_total += invoice_tranzaction.document_amount
+  		payment.invoices.each do |invoice|
+  			next if self == invoice
+  			invoices_total += invoice.document_amount
   		end
   	end
   	return invoices_total - payments_total

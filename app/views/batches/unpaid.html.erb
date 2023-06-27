@@ -1,6 +1,5 @@
 <div id="vue-batches-unpaid">
-  <%= form_with model: @batch do |form| %>
-    <%= render partial: '/payments/form' %>
+  <template v-if="section == 'select'">
     <table class="table my-3">
       <thead>
         <tr>
@@ -27,11 +26,18 @@
         </tr>
       </tbody>
     </table>
-    <%= button_tag(
-      'Create',
-      type: 'button',
-      class: 'btn btn-primary',
-      '@click': 'submitForm()'
-    ) %>
-  <% end %>
+    <button type="button" class="btn btn-primary" @click="section = 'form'">Select</button>
+  </template>
+  <template v-else>
+    <button type="button" class="btn btn-primary" @click="section = 'select'">Back</button>
+    <%= form_with model: @batch do |form| %>
+      <%= render partial: '/payments/form' %>
+      <%= button_tag(
+        'Create',
+        type: 'button',
+        class: 'btn btn-primary',
+        '@click': 'submitForm()'
+      ) %>
+    <% end %>
+  </template>
 </div>
