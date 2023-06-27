@@ -163,6 +163,7 @@ class TranzactionsController < ApplicationController
       :completed_at,
       :deleted_at,
       batch_attributes: [
+        :id,
         :name,
         :comment,
         :purpose,

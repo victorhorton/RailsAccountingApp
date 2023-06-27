@@ -12,6 +12,7 @@ class DirectedBatchSerializer < ActiveModel::Serializer
 
     def batch_attributes
       return {
+        id: object.batch.id,
         name: object.batch.name,
         comment: object.batch.comment,
         purpose: object.batch.purpose,
