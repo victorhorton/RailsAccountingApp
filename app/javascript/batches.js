@@ -296,14 +296,15 @@ if ($('#vue-batches-unpaid').length) {
       },
       setPaymentAmount(payment) {
         const entryAmount = parseFloat(event.currentTarget.value.replace(',', ''));
-        const paymentEntries = this.tranzactionPayment.entries_attributes;
+        const paymentEntries = this.paymentTranzaction(payment).entries_attributes;
         paymentEntries.forEach(entry => {
           return entry.amount = entryAmount
         })
       },
       setPaymentAccount(payment) {
         const paymentAccount = event.currentTarget.value;
-        this.tranzactionPayment.entries_attributes.find(e => {
+        const tranzaction = this.paymentTranzaction(payment)
+        tranzaction.entries_attributes.find(e => {
           return e.designation === 'distribution'
         }).account_id = paymentAccount;
       },
@@ -316,7 +317,7 @@ if ($('#vue-batches-unpaid').length) {
         tranzaction.date = common.formatDate(date);
       },
       getPaymentAccount(payment) {
-        return this.tranzactionPayment.entries_attributes.find(e => {
+        return this.paymentTranzaction(payment).entries_attributes.find(e => {
           return e.designation === 'distribution'
         }).account_id
       },
@@ -324,7 +325,7 @@ if ($('#vue-batches-unpaid').length) {
         return common.parseDate(tranzaction.date);
       },
       getPaymentAmount(payment) {
-        const entryAmount = this.tranzactionPayment.entries_attributes.find(e => {
+        const entryAmount = this.paymentTranzaction(payment).entries_attributes.find(e => {
           return e.designation === 'primary'
         }).amount
 
@@ -356,11 +357,10 @@ if ($('#vue-batches-unpaid').length) {
       },
     },
     computed: {
-      tranzactionPayment() {
-        return this.batch.tranzactions_attributes[0];
-      },
-      payment() {
-        return this.batch.tranzactions_attributes[0].payment_attributes;
+      payments() {
+        return this.batch.tranzactions_attributes.map(tranzaction => {
+          return tranzaction.payment_attributes;
+        });
       }
     }
   }).mount('#vue-batches-unpaid')

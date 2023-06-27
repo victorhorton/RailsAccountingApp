@@ -1,4 +1,5 @@
 <div id="vue-batches-unpaid">
+  {{batch}}
   <template v-if="section == 'select'">
     <table class="table my-3">
       <thead>
@@ -31,7 +32,9 @@
   <template v-else>
     <button type="button" class="btn btn-primary" @click="section = 'select'">Back</button>
     <%= form_with model: @batch do |form| %>
-      <%= render partial: '/payments/form' %>
+      <template v-for="payment in payments">
+        <%= render partial: '/payments/form' %>
+      </template>
       <%= button_tag(
         'Create',
         type: 'button',
