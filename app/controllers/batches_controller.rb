@@ -93,18 +93,10 @@ class BatchesController < ApplicationController
 	private
 
   def success
+    flash.notice = "#{@batch.name} Saved"
     respond_to do |format|
       format.html {
-        if params[:action] == 'create'
-          if @batch.purpose == 'general_ledger'
-            redirect_to edit_batch_path(@batch)
-          else
-            redirect_to new_tranzaction_path(batch_id: @batch.id, id: DateTime.now.to_i)
-          end
-        else
-          flash.notice = "#{@batch.name} Saved"
-          redirect_to batches_path(purpose: @batch.purpose)
-        end
+        redirect_to batches_path(purpose: @batch.purpose)
       }
       format.json {
         render json: {

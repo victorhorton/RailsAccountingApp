@@ -341,10 +341,10 @@ if ($('#vue-batches-unpaid').length) {
           data: {
             batch: this.batch
           },
-          success: e => {
+          success: resp => {
             window.location = '/'
           },
-          error: e => {
+          error: resp => {
             location.reload();
           }
         });
