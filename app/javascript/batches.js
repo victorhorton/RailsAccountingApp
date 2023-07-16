@@ -269,11 +269,13 @@ if ($('#vue-batches-unpaid').length) {
             },
             entries_attributes: [
               {
+                amount: parseFloat(invoiceTranzaction.pay_off_amount),
                 designation: 'primary',
                 entry_type: this.primaryEntryType,
                 account_id: this.primaryAccount,
               },
               {
+                amount: parseFloat(invoiceTranzaction.pay_off_amount),
                 designation: 'distribution',
                 entry_type: this.secondaryEntryType,
               }
