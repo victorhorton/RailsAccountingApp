@@ -10,10 +10,12 @@ This is a personal portfolio accounting web application built using Ruby on Rail
 
 ## Installation
 
+Install ruby gems
+
 `bundle install`
 
 Set up the database:
 
-`rails db:create`
-`rails db:migrate`
+`rails db:create`<br>
+`rails db:migrate`<br>
 `rails db:seed`
