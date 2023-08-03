@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Saul Goodman",
+    "phone_number": "505-503-4455 ",
+    "address": "4311 NM-14",
+    "city": "Santa Fe",
+    "state": "NM",
+    "zip": "87504",
+    "description": "Prisoner"
+  },
+  {
+    "name": "Kim Wexler",
+    "city": "Titusville",
+    "state": "FL",
+    "description": "Former Lawyer"
+  }
+]

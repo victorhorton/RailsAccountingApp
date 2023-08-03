@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1010,
+    "name": "Cash on Hand",
+    "account_type": "asset"
+  },
+  {
+    "id": 2010,
+    "name": "Accounts Payable",
+    "account_type": "liability"
+  },
+  {
+    "id": 1200,
+    "name": "Accounts Receivable",
+    "account_type": "asset"
+  },
+  {
+    "id": 1020,
+    "name": "Bank Account",
+    "account_type": "asset"
+  },
+  {
+    "id": 2020,
+    "name": "Company CC",
+    "account_type": "liability"
+  }
+]

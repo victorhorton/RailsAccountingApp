@@ -1,7 +1,28 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
+require 'json'
+
+accounts_text = File.read(Rails.root.join('lib', 'seeds', 'accounts.json'))
+accounts = JSON.parse(accounts_text)
+
+accounts.each do |account|
+  Account.create(
+    id: account['id'],
+    name: account['name'],
+    account_type: account['account_type'],
+  )
+end
+
+contacts_text = File.read(Rails.root.join('lib', 'seeds', 'contacts.json'))
+contacts = JSON.parse(contacts_text)
+
+contacts.each do |contact|
+  Contact.create(
+    name: contact['name'],
+    phone_number: contact['phone_number'],
+    email: contact['email'],
+    address: contact['address'],
+    city: contact['city'],
+    state: contact['state'],
+    zip: contact['zip'],
+    description: contact['description'],
+  )
+end
