@@ -1,24 +1,19 @@
-# README
+# Accounting App
+This is a personal portfolio accounting web application built using Ruby on Rails 5 and Vue.js. It provides a user-friendly interface for managing accounting-related tasks, such as creating invoices, tracking expenses, and printing checks.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Features
+* Create and manage invoices
+* Record and categorize expenses
+* Track payments and outstanding balances
+* Reconciliation
+* Print checks
 
-Things you may want to cover:
+## Installation
 
-* Ruby version
+`bundle install`
 
-* System dependencies
+Set up the database:
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+`rails db:create`
+`rails db:migrate`
+`rails db:seed`
